@@ -1,22 +1,9 @@
 ﻿using IP2Country;
-using IP2Country.Datasources;
-using IP2Country.DbIp;
-using IP2Country.Entities;
-using IP2Country.IP2IQ;
-using IP2Country.MaxMind;
-using IP2Country.Ludost;
-using IP2Country.WebNet77;
-using IP2Country.MarkusGo;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
 using IP2Country.Registries;
+using System;
 using System.IO;
-using IP2Country.IpToAsn;
-using System.Collections.Concurrent;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DemoApp
 {
@@ -24,86 +11,33 @@ namespace DemoApp
     {
         static async Task Main(string[] args)
         {
-            try
-            {
-                var d = new CachingWebClient();
+            // Download all registry delegation lates files and store/"cache" them in a temp directory
+            var d = new CachingWebClient();
+            var temppath = Directory.CreateDirectory(Path.Combine(Path.GetTempPath(), "delegationcache")).FullName;
+            await Task.WhenAll(
+                d.DownloadAsync("http://ftp.ripe.net/ripe/stats/delegated-ripencc-extended-latest", Path.Combine(temppath, "ripe.dat")),
+                d.DownloadAsync("http://ftp.apnic.net/pub/stats/apnic/delegated-apnic-extended-latest", Path.Combine(temppath, "apnic.dat")),
+                d.DownloadAsync("http://ftp.arin.net/pub/stats/arin/delegated-arin-extended-latest", Path.Combine(temppath, "arin.dat")),
+                d.DownloadAsync("http://ftp.lacnic.net/pub/stats/lacnic/delegated-lacnic-extended-latest", Path.Combine(temppath, "lacnic.dat")),
+                d.DownloadAsync("http://ftp.afrinic.net/pub/stats/afrinic/delegated-afrinic-extended-latest", Path.Combine(temppath, "afrinic.dat"))
+            );
 
-                var ls = Stopwatch.StartNew();
-                var resolvers = new[] {
-                    new IP2CountryResolver(new IIP2CountryDataSource[] {
-                        new IpToAsnCSVFileSource(await d.DownloadAsync("https://iptoasn.com/data/ip2country-v4.tsv.gz", @"D:\test\IP2Country\ip2asnipv4.dat")),
-                        new IpToAsnCSVFileSource(await d.DownloadAsync("https://iptoasn.com/data/ip2country-v6.tsv.gz", @"D:\test\IP2Country\ip2asnipv6.dat")),
-                    }),
+            // Initialize resolver with all data files
+            var resolver = new IP2CountryResolver(
+                Directory.GetFiles(temppath, "*.dat").Select(f => new RegistryCSVFileSource(f))
+            );
 
-                    new IP2CountryResolver(new IIP2CountryDataSource[] {
-                        new WebNet77IPv4CSVFileSource(await d.DownloadAsync("http://software77.net/geo-ip/?DL=1", @"D:\test\IP2Country\webnet77ipv4.dat")),
-                        new WebNet77IPv6CSVFileSource(await d.DownloadAsync("http://software77.net/geo-ip/?DL=7", @"D:\test\IP2Country\webnet77ipv6.dat"))
-                    }),
+            // A bunch of semi-"random" IPv4/IPv6 IP's from random countries for demonstration purposes...
+            var ips = new[] {
+                "172.217.17.110", "31.13.91.36",
+                "2607:f8b0:4005:80b:0:0:0:200e", "2a03:2880:f11b:83:face:b00c:0:25de"
+            };
 
-                    new IP2CountryResolver(
-                        new DbIpCSVFileSource(await d.DownloadAsync("http://download.db-ip.com/free/dbip-country-2018-02.csv.gz", @"D:\test\IP2Country\dbipv46.dat"))
-                    ),
+            var results = resolver.Resolve(ips);
 
-                    new IP2CountryResolver(new IIP2CountryDataSource[] {
-                        new MaxMindGeoLiteIPCSVFileSource(await d.DownloadAsync("http://geolite.maxmind.com/download/geoip/database/GeoIPCountryCSV.zip", @"D:\test\IP2Country\maxmindipv4.dat")),
-                        new MaxMindGeoLiteIPCSVFileSource(await d.DownloadAsync("http://geolite.maxmind.com/download/geoip/database/GeoIPv6.csv.gz", @"D:\test\IP2Country\maxmindipv6.dat"))
-                    }),
-
-                    new IP2CountryResolver(
-                        new IP2IQCSVFileSource(await d.DownloadAsync("http://www.ip2iq.com/get?ip2-cc.csv.gz", @"D:\test\IP2Country\ip2iqipv4.dat"))
-                    ),
-
-                    new IP2CountryResolver(
-                        new LudostCSVFileSource(await d.DownloadAsync("https://ip.ludost.net/raw/country.db.gz", @"D:\test\IP2Country\ludostipv4.dat"))
-                    ),
-
-                    new IP2CountryResolver(
-                        new MarkusGoCSVFileSource(await d.DownloadAsync("https://github.com/Markus-Go/ip-countryside/blob/downloads/ip2country.zip?raw=true", @"D:\test\IP2Country\markusgoipv4.dat"))
-                    ),
-
-                    new IP2CountryResolver(new IIP2CountryDataSource[] {
-                        new RegistryCSVFileSource(await d.DownloadAsync("http://ftp.ripe.net/ripe/stats/delegated-ripencc-extended-latest", @"D:\test\IP2Country\registries\ripe.dat")),
-                        new RegistryCSVFileSource(await d.DownloadAsync("http://ftp.apnic.net/pub/stats/apnic/delegated-apnic-extended-latest", @"D:\test\IP2Country\registries\apnic.dat")),
-                        new RegistryCSVFileSource(await d.DownloadAsync("http://ftp.arin.net/pub/stats/arin/delegated-arin-extended-latest", @"D:\test\IP2Country\registries\arin.dat")),
-                        new RegistryCSVFileSource(await d.DownloadAsync("http://ftp.lacnic.net/pub/stats/lacnic/delegated-lacnic-extended-latest", @"D:\test\IP2Country\registries\lacnic.dat")),
-                        new RegistryCSVFileSource(await d.DownloadAsync("http://ftp.afrinic.net/pub/stats/afrinic/delegated-afrinic-extended-latest", @"D:\test\IP2Country\registries\afrinic.dat"))
-                    }),
-
-                };
-                Console.WriteLine($"Load: {ls.Elapsed}");
-
-                // Warm up
-                foreach (var r in resolvers)
-                {
-                    var resultv4 = r.Resolve("196.76.0.35");
-                    var resultv6 = r.Resolve("2a00:1450:400e:807::200e");
-
-                    //Console.WriteLine($"{resultv4?.Country}\t{resultv6?.Country}");
-                }
-
-                var ips = File.ReadAllLines(@"D:\test\ips.txt").Select(l => IPAddress.Parse(l)).ToArray();
-                for (int ri = 0; ri < resolvers.Length; ri++)
-                {
-                    var r = resolvers[ri];
-
-                    var s = Stopwatch.StartNew();
-
-                    var res = r.Resolve(ips);
-                    Console.WriteLine($"Time: {s.Elapsed.ToString("G")}\tNot found: {res.Count(i => i == null)}\tCountries: {res.Where(i => i != null).Select(i => i.Country).Distinct().Count()}\tResolves: {(int)(ips.Length / s.Elapsed.TotalSeconds),8:N0}/s");
-
-                    //var cntcount = results[ri].Where(v => v != null).GroupBy(v => v.Country).Select(g => new { g.Key, Count = g.Count() });
-                    //foreach (var ct in cntcount.OrderByDescending(v => v.Count))
-                    //{
-                    //    Console.WriteLine($"{ct.Key}\t{ct.Count,8}\t{ct.Count / (double)ips.Length:P2}");
-                    //}
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            Console.WriteLine("Press any key");
-            Console.ReadKey();
+            // Now show the IP -> Country results
+            for (int i = 0; i < ips.Length; i++)
+                Console.WriteLine($"IP: {ips[i],40}\tCountry: {results[i]?.Country ?? "Unknown"}");
         }
     }
 }

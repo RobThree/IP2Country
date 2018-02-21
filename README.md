@@ -52,7 +52,7 @@ The acuracy depends entirely on the acuracy of the datasource. This library has 
 
 ## Benchmarks / performance:
 
-On an [Intel Xeon E3-1225 v3](https://ark.intel.com/products/75461/Intel-Xeon-Processor-E3-1225-v3-8M-Cache-3_20-GHz) CPU it's perfectly possible to achieve over **2.000.000 lookups per second**. Ofcourse results will vary depending on the size of the dataset, the usage, the CPU and other factors.
+On an [Intel Xeon E3-1225 v3](https://ark.intel.com/products/75461/Intel-Xeon-Processor-E3-1225-v3-8M-Cache-3_20-GHz) CPU it's perfectly possible to achieve over **2,000,000 lookups per second** (yes, that is over 2 million!). Ofcourse results will vary depending on the size of the dataset, the usage, the CPU and other factors.
 
 Not that when an instance of an `IP2CountryResolver` is created it will load **all** the data from the datasource into memory. Naturally this is a costly, though one-time, operation. As long as the `IP2CountryResolver` object is kept alive you can (re)use it to resolve IP adresses. We recommend creating an instance once and keeping it around as long as possible. Create a new instance and swap it out with the old one if there is new data available from the datasource.
 

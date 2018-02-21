@@ -13,6 +13,7 @@
     <PackageTags>IP Geolocation Country IP2Country IpToCountry IP2IQ</PackageTags>
     <PackageReleaseNotes>Initial release</PackageReleaseNotes>
     <Description>IP2Location Datasource for http://www.ip2iq.com/</Description>
+    <PackageIconUrl>https://raw.githubusercontent.com/RobThree/IP2Country/master/icons/ip2iq.png</PackageIconUrl>
   </PropertyGroup>
 
   <ItemGroup>

@@ -13,6 +13,7 @@
     <PackageTags>IP Geolocation Country IP2Country IpToCountry DbIp Db-Ip</PackageTags>
     <PackageReleaseNotes>Initial release</PackageReleaseNotes>
     <Description>IP2Location Datasource for https://db-ip.com/</Description>
+    <PackageIconUrl>https://raw.githubusercontent.com/RobThree/IP2Country/master/icons/dbip.png</PackageIconUrl>
   </PropertyGroup>
 
   <ItemGroup>

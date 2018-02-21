@@ -13,6 +13,7 @@
     <PackageTags>IP Geolocation Country IP2Country IpToCountry IpToASN</PackageTags>
     <PackageReleaseNotes>Initial release</PackageReleaseNotes>
     <Description>IP2Location Datasource for https://iptoasn.com</Description>
+    <PackageIconUrl>https://raw.githubusercontent.com/RobThree/IP2Country/master/icons/iptoasn.png</PackageIconUrl>
   </PropertyGroup>
 
   <ItemGroup>

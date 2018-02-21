@@ -11,10 +11,10 @@
     <PackageLicenseUrl>https://github.com/RobThree/IP2Country/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/RobThree/IP2Country</PackageProjectUrl>
     <PackageTags>IP Geolocation Country IP2Country IpToCountry</PackageTags>
-    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <PackageReleaseNotes>Fix issue with ZIP files</PackageReleaseNotes>
     <Description>Provides base classes for handling CSV files (plain, gzipped or zipped) for IP2Country</Description>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <Version>1.0.1</Version>
+    <AssemblyVersion>1.0.2.0</AssemblyVersion>
+    <Version>1.0.2</Version>
     <PackageIconUrl>https://raw.githubusercontent.com/RobThree/IP2Country/master/icons/csvdatasource.png</PackageIconUrl>
   </PropertyGroup>
 

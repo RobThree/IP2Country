@@ -55,7 +55,7 @@ namespace IP2Country.DataSources.CSVFile
         {
             if (IsZIP(path))
             {
-                using (var zipArchive = ZipFile.OpenRead(path))
+                using (var zipArchive = new ZipArchive(File.OpenRead(path), ZipArchiveMode.Read))
                 {
                     foreach (var entry in zipArchive.Entries)
                         foreach (var r in Read(entry.Open(), parser))

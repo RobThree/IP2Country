@@ -5,6 +5,7 @@
     <Authors>RobIII</Authors>
     <Company>Devcorner.nl</Company>
     <PackageId>IP-2-Country</PackageId>
+    <NoPackageAnalysis>true</NoPackageAnalysis>
     <Product>IP-2-Country</Product>
     <Copyright>(C) 2018 Devcorner.nl</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

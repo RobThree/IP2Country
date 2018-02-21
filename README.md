@@ -17,4 +17,4 @@ Source: [ShareIcon.Net](https://www.shareicon.net/internet-marketing-geo-geo-loc
 Author: [Ayesha Nasir](https://www.shareicon.net/author/ayesha-nasir)
 License: [Creative Commons (Attribution 3.0 Unported)](https://creativecommons.org/licenses/by/3.0/)
 <hr>
-[![Build status](https://ci.appveyor.com/api/projects/status/bs1l4mjdnlusv4n5?svg=true)](https://ci.appveyor.com/project/RobIII/ip2country) <a href="https://www.nuget.org/packages/IP-2-Country/"><img src="http://img.shields.io/nuget/v/IP-2-Country.svg?style=flat-square" alt="NuGet version" height="18"></a>
+[![Build status](https://ci.appveyor.com/api/projects/status/bs1l4mjdnlusv4n5)](https://ci.appveyor.com/project/RobIII/ip2country) <a href="https://www.nuget.org/packages/IP-2-Country/"><img src="http://img.shields.io/nuget/v/IP-2-Country.svg?style=flat-square" alt="NuGet version" height="18"></a>

@@ -25,7 +25,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IP2Country.Registries", "IP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IP2Country.IpToAsn", "IP2Country.IpToAsn\IP2Country.IpToAsn.csproj", "{FC2C9EE4-D834-43E3-80EE-E8EFC6462B6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IP2Country.DataSources.CSVFile", "IP2Country.DataSources.CSVFile\IP2Country.DataSources.CSVFile.csproj", "{BBB269BA-1E65-4F81-8302-74B320FA4813}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IP2Country.DataSources.CSVFile", "IP2Country.DataSources.CSVFile\IP2Country.DataSources.CSVFile.csproj", "{BBB269BA-1E65-4F81-8302-74B320FA4813}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{73F0E4D4-4517-4D21-A5D3-C98029FACB32}"
+	ProjectSection(SolutionItems) = preProject
+		icon.png = icon.png
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -40,6 +40,10 @@ var result = (RegistryIPRangeCountry)resolver.Resolve("172.217.17.110");
 
 Besides the provided datasources it's very simple to implement your own datasource; all you need to do is implement a single method (`IEnumerable<IIPRangeCountry> Read()`) from a single interface (`IIP2CountryDataSource`). It's up to you wether you want to use a CVS file, binary file, database, Excel file or whatever other method of storage you can imagine. As long as you can provide IP ranges (as start/end pairs) and country data (as string) as an IEnumerable source you're done. This repository has lots of examples of CSV datasources but it's perfectly fine to build and provide your own datasource.
 
+### A word on the actual data
+
+The provided datasources are nothing but simple "CSV file readers". It's up to you to download the actual data files (and cache them for later use). The DemoApp contains an example of downloading files into a temp directory and caching them. Ofcourse you're free to implement your own download/cache mechanism. As long as you can provide a datasource that implements the `IIP2CountryDataSource` interface this library doesn't care about the rest.
+
 ## Acuracy
 
 The acuracy depends entirely on the acuracy of the datasource. This library has no built-in data whatsoever. You _may_ also want to ensure your datasource doesn't provide ranges to the `IP2CountryResolver` that overlap. It's up to you / the datasource to ensure the data is as acurate as possible (and as up-to-date as possible).

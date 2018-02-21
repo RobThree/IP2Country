@@ -1,14 +1,14 @@
 # ![Logo](https://raw.githubusercontent.com/RobThree/IP2Country/master/icons/icon.png) IP2Country
-Library to map IP addresses (both IPv4 and IPv6) to a country. The accuracy depends on the data provider; a lot of providers are supported 'out of the box':
+Library to map IP addresses (both IPv4 and IPv6) to a country, available as [NuGet package](https://www.nuget.org/packages/IP-2-Country/). The accuracy depends on the data provider; a lot of providers are supported 'out of the box':
 
-* All registries ([RIPE](https://www.ripe.net/), [APNIC](https://www.apnic.net/), [ARIN](https://www.arin.net/), [LACNIC](http://www.lacnic.net/) and [AFRINIC](https://www.afrinic.net/))
-* [MaxMind](https://www.maxmind.com)
-* [DB-IP](https://db-ip.com/)
-* [IP2IQ](http://www.ip2iq.com/)
-* [IPToASN](https://iptoasn.com/)
-* [Ludost](https://ip.ludost.net/)
-* [Markus Go's ip-countryside](https://github.com/Markus-Go/ip-countryside/)
-* [WebNet77](https://webnet77.net/geo-ip/)
+* All registries ([RIPE](https://www.ripe.net/), [APNIC](https://www.apnic.net/), [ARIN](https://www.arin.net/), [LACNIC](http://www.lacnic.net/) and [AFRINIC](https://www.afrinic.net/)) ([NuGet](https://www.nuget.org/packages/IP-2-Country.Registries/))
+* [DB-IP](https://db-ip.com/) ([NuGet](https://www.nuget.org/packages/IP-2-Country.DbIp/))
+* [IP2IQ](http://www.ip2iq.com/) ([NuGet](https://www.nuget.org/packages/IP-2-Country.IP2IQ/))
+* [IPToASN](https://iptoasn.com/) ([NuGet](https://www.nuget.org/packages/IP-2-Country.IpToAsn/))
+* [Ludost](https://ip.ludost.net/) ([NuGet](https://www.nuget.org/packages/IP-2-Country.Ludost/))
+* [Markus Go's ip-countryside](https://github.com/Markus-Go/ip-countryside/) ([NuGet](https://www.nuget.org/packages/IP-2-Country.MarkusGo/))
+* [MaxMind](https://www.maxmind.com) ([NuGet](https://www.nuget.org/packages/IP-2-Country.MaxMind/))
+* [WebNet77](https://webnet77.net/geo-ip/) ([NuGet](https://www.nuget.org/packages/IP-2-Country.WebNet77/))
 
 This library provides an easy to implement interface (`IIP2CountryDataSource`) to provide your own data to the `IP2CountryResolver`. This library only aims for 'country level resolution'; city, ISP etc. information _can_ be returned (when provided) but is not the goal of this library. All data is stored in entities / models derived from `IIPRangeCountry` which, at the very minimum, must provide a start- and end IP address (IPv4 and/or IPv6, supported completely transparently) and country (_usually_ an [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code, but may contain other data depending on the data source).
 
@@ -52,7 +52,7 @@ The acuracy depends entirely on the acuracy of the datasource. This library has 
 
 ## Benchmarks / performance:
 
-On an [Intel Xeon E3-1225 v3](https://ark.intel.com/products/75461/Intel-Xeon-Processor-E3-1225-v3-8M-Cache-3_20-GHz) CPU it's perfectly possible to achieve over **2.000.000 lookups per second**. Ofcourse results will vary depending on the size of the dataset, the usage, the CPU and other factors.
+On an [Intel Xeon E3-1225 v3](https://ark.intel.com/products/75461/Intel-Xeon-Processor-E3-1225-v3-8M-Cache-3_20-GHz) CPU it's perfectly possible to achieve over **2,000,000 lookups per second** (yes, that is over 2 million!). Ofcourse results will vary depending on the size of the dataset, the usage, the CPU and other factors.
 
 Not that when an instance of an `IP2CountryResolver` is created it will load **all** the data from the datasource into memory. Naturally this is a costly, though one-time, operation. As long as the `IP2CountryResolver` object is kept alive you can (re)use it to resolve IP adresses. We recommend creating an instance once and keeping it around as long as possible. Create a new instance and swap it out with the old one if there is new data available from the datasource.
 

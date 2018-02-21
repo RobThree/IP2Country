@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net45;net451;net452;net46;net461;net462;net47;net471;netstandard2.0;netcoreapp2.0</TargetFrameworks>
+    <PackageId>IP-2-Country.Registries</PackageId>
+    <Authors>RobIII</Authors>
+    <Company>Devcorner.nl</Company>
+    <Product>IP-2-Country.Registries</Product>
+    <Copyright>(C) 2018 Devcorner.nl</Copyright>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IP2Country.DataSources.CSVFile\IP2Country.DataSources.CSVFile.csproj" />
+    <ProjectReference Include="..\IP2Country\IP2Country.csproj" />
+  </ItemGroup>
+
+</Project>

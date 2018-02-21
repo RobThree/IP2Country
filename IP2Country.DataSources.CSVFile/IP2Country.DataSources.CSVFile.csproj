@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net45;net451;net452;net46;net461;net462;net47;net471;netstandard2.0;netcoreapp2.0</TargetFrameworks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>IP-2-Country.DataSources.CSVFile</PackageId>
+    <Product>IP-2-Country.DataSources.CSVFile</Product>
+    <Copyright>(C) 2018 Devcorner.nl</Copyright>
+    <Authors>RobIII</Authors>
+    <Company>Devcorner.nl</Company>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.IO.Compression" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IP2Country\IP2Country.csproj" />
+  </ItemGroup>
+
+</Project>

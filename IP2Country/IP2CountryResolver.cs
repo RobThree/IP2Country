@@ -45,16 +45,24 @@ namespace IP2Country
             return null;
         }
 
-        //public IIPRangeCountry[] Resolve(IPAddress[] ips)
-        //{
-        //    var results = new IIPRangeCountry[ips.Length];
-        //    Parallel.ForEach(Partitioner.Create(0, ips.Length), range =>
-        //    {
-        //        for (var index = range.Item1; index < range.Item2; index++)
-        //            results[index] = Resolve(ips[index]);
-        //    });
-        //    return results;
-        //}
+        public IIPRangeCountry[] Resolve(string[] ips)
+        {
+            if (ips.Any(i => string.IsNullOrEmpty(i)))
+                throw new ArgumentNullException(nameof(ips));
+
+            return Resolve(ips.Select(i => IPAddress.Parse(i)).ToArray());
+        }
+
+        public IIPRangeCountry[] Resolve(IPAddress[] ips)
+        {
+            var results = new IIPRangeCountry[ips.Length];
+            Parallel.ForEach(Partitioner.Create(0, ips.Length), range =>
+            {
+                for (var index = range.Item1; index < range.Item2; index++)
+                    results[index] = Resolve(ips[index]);
+            });
+            return results;
+        }
 
         private static IIPRangeCountry Resolve(IIPRangeCountry[] data, IPAddress ip)
         {
@@ -77,43 +85,5 @@ namespace IP2Country
 
             return null;
         }
-
-
-        // TODO: Delete below stuff ======================================================
-        //public IEnumerable<IIPRangeCountry> ResolveMulti(IPAddress ip)
-        //{
-        //    if (_ipinfo.TryGetValue(ip.AddressFamily, out IIPRangeCountry[] data))
-        //        return ResolveMulti(data, ip);
-        //    return null;
-        //}
-
-        //private static IEnumerable<IIPRangeCountry> ResolveMulti(IIPRangeCountry[] data, IPAddress ip)
-        //{
-        //    var lower = 0;
-        //    var upper = data.Length - 1;
-
-        //    while (lower <= upper)
-        //    {
-        //        var middle = (lower + upper) / 2;
-        //        var cs = _comparer.Compare(ip, data[middle].Start);
-        //        var ce = _comparer.Compare(ip, data[middle].End);
-        //        var comparisonResult = (cs >= 0 && ce <= 0) ? 0 : cs;
-        //        if (comparisonResult == 0)
-        //        {
-        //            while (middle > 0 && _comparer.Compare(ip, data[middle - 1].Start) >= 0 && _comparer.Compare(ip, data[middle - 1].End) <= 0)
-        //                middle--;
-        //            while (middle < data.Length && _comparer.Compare(ip, data[middle].Start) >= 0 && _comparer.Compare(ip, data[middle].End) <= 0)
-        //            {
-        //                yield return data[middle];
-        //                middle++;
-        //            }
-        //            break;
-        //        }
-        //        else if (comparisonResult < 0)
-        //            upper = middle - 1;
-        //        else
-        //            lower = middle + 1;
-        //    }
-        //}
     }
 }

@@ -86,19 +86,9 @@ namespace DemoApp
                 {
                     var r = resolvers[ri];
 
-                    var res = new IIPRangeCountry[ips.Length];
                     var s = Stopwatch.StartNew();
 
-                    //for (int i = 0; i < ips.Length; i++)
-                    //    res[i] = r.Resolve(ips[i]);
-
-                    Parallel.ForEach(Partitioner.Create(0, ips.Length), range =>
-                    {
-                        for (var index = range.Item1; index < range.Item2; index++)
-                            res[index] = r.Resolve(ips[index]);
-                    });
-
-
+                    var res = r.Resolve(ips);
                     Console.WriteLine($"Time: {s.Elapsed.ToString("G")}\tNot found: {res.Count(i => i == null)}\tCountries: {res.Where(i => i != null).Select(i => i.Country).Distinct().Count()}\tResolves: {(int)(ips.Length / s.Elapsed.TotalSeconds),8:N0}/s");
 
                     //var cntcount = results[ri].Where(v => v != null).GroupBy(v => v.Country).Select(g => new { g.Key, Count = g.Count() });

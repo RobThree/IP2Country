@@ -8,6 +8,11 @@
     <Product>IP-2-Country.WebNet77</Product>
     <Copyright>(C) 2018 Devcorner.nl</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseUrl>https://github.com/RobThree/IP2Country/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/RobThree/IP2Country</PackageProjectUrl>
+    <PackageTags>IP Geolocation Country IP2Country IpToCountry WebNet77 Software77</PackageTags>
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <Description>IP2Location Datasource for http://software77.net/geo-ip</Description>
   </PropertyGroup>
 
   <ItemGroup>

@@ -8,6 +8,11 @@
     <Product>IP-2-Country</Product>
     <Copyright>(C) 2018 Devcorner.nl</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseUrl>https://github.com/RobThree/IP2Country/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/RobThree/IP2Country</PackageProjectUrl>
+    <PackageTags>IP Geolocation Country IP2Country IpToCountry</PackageTags>
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <Description>Provides IP (IPv4 *and* IPv6) mappings to countries. This project provides the IP2CountryResolver and entities and other baseclasses and interfaces. It can be used with many (custom or provided) datasources like the databases from DB-IP, IP2IQ, IPToASN, Ludost, Markus-Go, Maxmind, WebNet77 and the official delegate files from the registries (RIPE, APNIC, ARIN, LACNIC and AFRINIC).</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

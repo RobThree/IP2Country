@@ -8,6 +8,11 @@
     <Product>IP-2-Country.MarkusGo</Product>
     <Copyright>(C) 2018 Devcorner.nl</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseUrl>https://github.com/RobThree/IP2Country/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/RobThree/IP2Country</PackageProjectUrl>
+    <PackageTags>IP Geolocation Country IP2Country IpToCountry MarkusGo Markus-Go</PackageTags>
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <Description>IP2Location Datasource for https://github.com/Markus-Go/ip-countryside</Description>
   </PropertyGroup>
 
   <ItemGroup>

@@ -19,7 +19,7 @@ In general, you'll want to use one of the above mentioned datasources. You can c
 ```c#
 var resolver = new IP2CountryResolver(new IIP2CountryDataSource[] {
     new MaxMindGeoLiteIPCSVFileSource(@"D:\files\maxmindipv4.dat"),
-    new MaxMindGeoLiteIPCSVFileSource(@"D:\files\maxmindipv6.dat"))
+    new MaxMindGeoLiteIPCSVFileSource(@"D:\files\maxmindipv6.dat")
 });
 ```
 

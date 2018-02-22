@@ -30,7 +30,7 @@ namespace IP2Country.DbIp
             {
                 if (IgnoreErrors)
                     return null;
-                throw new Exception($"Unexpected number of fields: {data.Length}, expected: 3");
+                throw new UnexpectedNumberOfFieldsException(data.Length, 3);
             }
 
             return new DbIpIPRangeCountry

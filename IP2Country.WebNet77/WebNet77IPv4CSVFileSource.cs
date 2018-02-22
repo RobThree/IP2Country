@@ -30,7 +30,7 @@ namespace IP2Country.WebNet77
             {
                 if (IgnoreErrors)
                     return null;
-                throw new Exception($"Unexpected number of fields: {data.Length}, expected: 7");
+                throw new UnexpectedNumberOfFieldsException(data.Length, 7);
             }
 
             return new WebNet77IPv4IPRangeCountry

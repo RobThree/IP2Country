@@ -32,7 +32,7 @@ namespace IP2Country.MaxMind
             {
                 if (IgnoreErrors)
                     return null;
-                throw new Exception($"Unexpected number of fields: {data.Length}, expected: 6");
+                throw new UnexpectedNumberOfFieldsException(data.Length, 6);
             }
 
             return new MaxMindGeoLiteIPIPRangeCountry

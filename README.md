@@ -52,7 +52,7 @@ The acuracy depends entirely on the acuracy of the datasource. This library has 
 
 ## Benchmarks / performance:
 
-On an [Intel Xeon E3-1225 v3](https://ark.intel.com/products/75461/Intel-Xeon-Processor-E3-1225-v3-8M-Cache-3_20-GHz) CPU it's perfectly possible to achieve over **2,000,000 lookups per second** (yes, that is over 2 million!). Ofcourse results will vary depending on the size of the dataset, the usage, the CPU and other factors.
+On an [Intel Xeon E3-1225 v3](https://ark.intel.com/products/75461/Intel-Xeon-Processor-E3-1225-v3-8M-Cache-3_20-GHz) CPU it's perfectly possible to achieve over **2,000,000 lookups per second** (yes, that is over 2 million on an CPU from 2013!). Ofcourse results will vary depending on the size of the dataset, the usage, the CPU and other factors.
 
 Not that when an instance of an `IP2CountryResolver` is created it will load **all** the data from the datasource into memory. Naturally this is a costly, though one-time, operation. As long as the `IP2CountryResolver` object is kept alive you can (re)use it to resolve IP adresses. We recommend creating an instance once and keeping it around as long as possible. Create a new instance and swap it out with the old one if there is new data available from the datasource.
 
@@ -61,4 +61,5 @@ Source: [ShareIcon.Net](https://www.shareicon.net/internet-marketing-geo-geo-loc
 Author: [Ayesha Nasir](https://www.shareicon.net/author/ayesha-nasir)
 License: [Creative Commons (Attribution 3.0 Unported)](https://creativecommons.org/licenses/by/3.0/)
 <hr>
-[![Build status](https://ci.appveyor.com/api/projects/status/bs1l4mjdnlusv4n5)](https://ci.appveyor.com/project/RobIII/ip2country) <a href="https://www.nuget.org/packages/IP-2-Country/"><img src="http://img.shields.io/nuget/v/IP-2-Country.svg?style=flat-square" alt="NuGet version" height="18"></a>
+
+[![Build status](https://ci.appveyor.com/api/projects/status/bs1l4mjdnlusv4n5?svg=true)](https://ci.appveyor.com/project/RobIII/ip2country) <a href="https://www.nuget.org/packages/IP-2-Country/"><img src="http://img.shields.io/nuget/v/IP-2-Country.svg?style=flat-square" alt="NuGet version" height="18"></a>

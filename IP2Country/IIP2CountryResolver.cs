@@ -7,5 +7,7 @@ namespace IP2Country
     {
         IIPRangeCountry Resolve(string ip);
         IIPRangeCountry Resolve(IPAddress ip);
+        IIPRangeCountry[] Resolve(string[] ips);
+        IIPRangeCountry[] Resolve(IPAddress[] ips);
     }
 }

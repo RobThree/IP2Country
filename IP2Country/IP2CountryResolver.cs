@@ -64,6 +64,34 @@ namespace IP2Country
             return results;
         }
 
+        public IIPRangeCountry[] Resolve(IEnumerable<string> ips)
+        {
+            return Resolve(ips.ToArray());
+        }
+
+        public IIPRangeCountry[] Resolve(IEnumerable<IPAddress> ips)
+        {
+            return Resolve(ips.ToArray());
+        }
+
+        public IDictionary<string, IIPRangeCountry> ResolveAsDictionary(string[] ips)
+        {
+            return ToDict(ips, Resolve(ips.Distinct()));
+        }
+
+        public IDictionary<IPAddress, IIPRangeCountry> ResolveAsDictionary(IPAddress[] ips)
+        {
+            return ToDict(ips, Resolve(ips.Distinct()));
+        }
+
+        private IDictionary<T, IIPRangeCountry> ToDict<T>(T[] ips, IIPRangeCountry[] results)
+        {
+            var r = new Dictionary<T, IIPRangeCountry>(results.Length);
+            for (int i = 0; i < results.Length; i++)
+                r[ips[i]] = results[i];
+            return r;
+        }
+
         private static IIPRangeCountry Resolve(IIPRangeCountry[] data, IPAddress ip)
         {
             var lower = 0;

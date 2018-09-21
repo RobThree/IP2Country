@@ -36,7 +36,7 @@ namespace DemoApp
         {
             if (string.IsNullOrEmpty(url))
                 throw new ArgumentNullException(nameof(url));
-            return DownloadAsync(url);
+            return DownloadAsync(new Uri(url));
         }
 
         public async Task<Stream> DownloadAsync(Uri url)

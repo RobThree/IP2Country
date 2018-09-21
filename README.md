@@ -38,7 +38,7 @@ var result = (RegistryIPRangeCountry)resolver.Resolve("172.217.17.110");
 
 ## Datasources
 
-Besides the provided datasources it's very simple to implement your own datasource; all you need to do is implement a single method (`IEnumerable<IIPRangeCountry> Read()`) from a single interface (`IIP2CountryDataSource`). It's up to you wether you want to use a CVS file, binary file, database, Excel file or whatever other method of storage you can imagine. As long as you can provide IP ranges (as start/end pairs) and country data (as string) as an IEnumerable source you're done. This repository has lots of examples of CSV datasources but it's perfectly fine to build and provide your own datasource.
+Besides the provided datasources it's very simple to implement your own datasource; all you need to do is implement a single method (`IEnumerable<IIPRangeCountry> Read()`) from a single interface (`IIP2CountryDataSource`). It's up to you wether you want to use a CSV file, binary file, database, Excel file or whatever other method of storage you can imagine. As long as you can provide IP ranges (as start/end pairs) and country data (as string) as an IEnumerable source you're done. This repository has lots of examples of CSV datasources but it's perfectly fine to build and provide your own datasource.
 
 ### A word on the actual data
 

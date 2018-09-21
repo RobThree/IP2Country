@@ -11,7 +11,7 @@ namespace DemoApp
     {
         static async Task Main(string[] args)
         {
-            // Download all registry delegation lates files and store/"cache" them in a temp directory
+            // Download all registry delegation latest files and store/"cache" them in a temp directory
             var d = new CachingWebClient();
             var temppath = Directory.CreateDirectory(Path.Combine(Path.GetTempPath(), "delegationcache")).FullName;
             await Task.WhenAll(

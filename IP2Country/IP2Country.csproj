@@ -16,8 +16,9 @@
     <Description>Provides IP (IPv4 *and* IPv6) mappings to countries. This project provides the IP2CountryResolver and entities and other baseclasses and interfaces. It can be used with many (custom or provided) datasources like the databases from DB-IP, IP2IQ, IPToASN, Ludost, Markus-Go, Maxmind, WebNet77 and the official delegate files from the registries (RIPE, APNIC, ARIN, LACNIC and AFRINIC).</Description>
     <PackageIconUrl>https://raw.githubusercontent.com/RobThree/IP2Country/master/icons/icon.png</PackageIconUrl>
     <Version>1.0.5</Version>
-    <AssemblyVersion>1.0.4.0</AssemblyVersion>
-    <FileVersion>1.0.4.0</FileVersion>
+    <AssemblyVersion>1.0.5.0</AssemblyVersion>
+    <FileVersion>1.0.5.0</FileVersion>
+    <RepositoryUrl>https://github.com/RobThree/IP2Country</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

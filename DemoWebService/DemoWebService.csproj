@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>obj\Debug\netcoreapp2.2\DemoWebService.xml</DocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>obj\Release\netcoreapp2.2\DemoWebService.xml</DocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AspNetCoreRateLimit" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IP2Country.DataSources.CSVFile\IP2Country.DataSources.CSVFile.csproj" />
+    <ProjectReference Include="..\IP2Country.DbIp\IP2Country.DbIp.csproj" />
+    <ProjectReference Include="..\IP2Country.IP2IQ\IP2Country.IP2IQ.csproj" />
+    <ProjectReference Include="..\IP2Country.IpToAsn\IP2Country.IpToAsn.csproj" />
+    <ProjectReference Include="..\IP2Country.Ludost\IP2Country.Ludost.csproj" />
+    <ProjectReference Include="..\IP2Country.MarkusGo\IP2Country.MarkusGo.csproj" />
+    <ProjectReference Include="..\IP2Country.MaxMind\IP2Country.MaxMind.csproj" />
+    <ProjectReference Include="..\IP2Country.Registries\IP2Country.Registries.csproj" />
+    <ProjectReference Include="..\IP2Country.WebNet77\IP2Country.WebNet77.csproj" />
+    <ProjectReference Include="..\IP2Country\IP2Country.csproj" />
+  </ItemGroup>
+
+</Project>

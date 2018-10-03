@@ -76,12 +76,24 @@ namespace IP2Country
 
         public IDictionary<string, IIPRangeCountry> ResolveAsDictionary(string[] ips)
         {
-            return ToDict(ips, Resolve(ips.Distinct()));
+            return ResolveAsDictionary(ips.AsEnumerable());
         }
 
         public IDictionary<IPAddress, IIPRangeCountry> ResolveAsDictionary(IPAddress[] ips)
         {
-            return ToDict(ips, Resolve(ips.Distinct()));
+            return ResolveAsDictionary(ips.AsEnumerable());
+        }
+
+        public IDictionary<string, IIPRangeCountry> ResolveAsDictionary(IEnumerable<string> ips)
+        {
+            var resolveips = ips.Distinct().ToArray();
+            return ToDict(resolveips, Resolve(resolveips));
+        }
+
+        public IDictionary<IPAddress, IIPRangeCountry> ResolveAsDictionary(IEnumerable<IPAddress> ips)
+        {
+            var resolveips = ips.Distinct().ToArray();
+            return ToDict(resolveips, Resolve(resolveips));
         }
 
         private IDictionary<T, IIPRangeCountry> ToDict<T>(T[] ips, IIPRangeCountry[] results)

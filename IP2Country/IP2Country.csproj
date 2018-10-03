@@ -12,10 +12,10 @@
     <PackageLicenseUrl>https://github.com/RobThree/IP2Country/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/RobThree/IP2Country</PackageProjectUrl>
     <PackageTags>IP Geolocation Country IP2Country IpToCountry</PackageTags>
-    <PackageReleaseNotes>* Bring back NetStandard2.0 support</PackageReleaseNotes>
+    <PackageReleaseNotes>* Add two more overloads to interface</PackageReleaseNotes>
     <Description>Provides IP (IPv4 *and* IPv6) mappings to countries. This project provides the IP2CountryResolver and entities and other baseclasses and interfaces. It can be used with many (custom or provided) datasources like the databases from DB-IP, IP2IQ, IPToASN, Ludost, Markus-Go, Maxmind, WebNet77 and the official delegate files from the registries (RIPE, APNIC, ARIN, LACNIC and AFRINIC).</Description>
     <PackageIconUrl>https://raw.githubusercontent.com/RobThree/IP2Country/master/icons/icon.png</PackageIconUrl>
-    <Version>1.0.4</Version>
+    <Version>1.0.5</Version>
     <AssemblyVersion>1.0.4.0</AssemblyVersion>
     <FileVersion>1.0.4.0</FileVersion>
   </PropertyGroup>

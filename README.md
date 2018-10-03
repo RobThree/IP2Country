@@ -47,6 +47,8 @@ IIPRangeCountry[] Resolve(IEnumerable<string> ips);
 IIPRangeCountry[] Resolve(IEnumerable<IPAddress> ips);
 IDictionary<string, IIPRangeCountry> ResolveAsDictionary(string[] ips);
 IDictionary<IPAddress, IIPRangeCountry> ResolveAsDictionary(IPAddress[] ips);
+IDictionary<string, IIPRangeCountry> ResolveAsDictionary(IEnumerable<string> ips);
+IDictionary<IPAddress, IIPRangeCountry> ResolveAsDictionary(IEnumerable<IPAddress> ips);
 ````
 
 ## Datasources

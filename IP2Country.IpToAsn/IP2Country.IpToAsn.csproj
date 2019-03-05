@@ -6,9 +6,9 @@
     <Authors>RobIII</Authors>
     <Company>Devcorner.nl</Company>
     <Product>IP-2-Country.IpToAsn</Product>
-    <Copyright>(C) 2018 Devcorner.nl</Copyright>
+    <Copyright>(C) 2018 - 2019 Devcorner.nl</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageLicenseUrl>https://github.com/RobThree/IP2Country/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/RobThree/IP2Country</PackageProjectUrl>
     <PackageTags>IP Geolocation Country IP2Country IpToCountry IpToASN</PackageTags>
     <PackageReleaseNotes>* Bring back NetStandard2.0 support</PackageReleaseNotes>

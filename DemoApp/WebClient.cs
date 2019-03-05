@@ -39,11 +39,11 @@ namespace DemoApp
             return DownloadAsync(new Uri(url));
         }
 
-        public async Task<Stream> DownloadAsync(Uri url)
+        public Task<Stream> DownloadAsync(Uri url)
         {
             if (url == null)
                 throw new ArgumentNullException(nameof(url));
-            return await _httpclient.GetStreamAsync(url);
+            return _httpclient.GetStreamAsync(url);
         }
 
         private HttpClientHandler GetHttpClientHandler()

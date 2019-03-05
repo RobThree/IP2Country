@@ -19,7 +19,7 @@ namespace IP2Country.Ludost
 
     public class LudostCSVRecordParser : BaseCSVRecordParser<LudostIPRangeCountry>
     {
-        private static IPAddressComparer _comparer = IPAddressComparer.Default;
+        private static readonly IPAddressComparer _comparer = IPAddressComparer.Default;
 
         public override LudostIPRangeCountry ParseRecord(string record)
         {

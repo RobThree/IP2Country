@@ -19,7 +19,7 @@ namespace IP2Country.MarkusGo
 
     public class MarkusGoCSVRecordParser : BaseCSVRecordParser<MarkusGoIPRangeCountry>
     {
-        private static IPAddressComparer _comparer = IPAddressComparer.Default;
+        private static readonly IPAddressComparer _comparer = IPAddressComparer.Default;
 
         public override MarkusGoIPRangeCountry ParseRecord(string record)
         {

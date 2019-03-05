@@ -7,9 +7,9 @@
     <PackageId>IP-2-Country</PackageId>
     <NoPackageAnalysis>true</NoPackageAnalysis>
     <Product>IP-2-Country</Product>
-    <Copyright>(C) 2018 Devcorner.nl</Copyright>
+    <Copyright>(C) 2018 - 2019 Devcorner.nl</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageLicenseUrl>https://github.com/RobThree/IP2Country/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/RobThree/IP2Country</PackageProjectUrl>
     <PackageTags>IP Geolocation Country IP2Country IpToCountry</PackageTags>
     <PackageReleaseNotes>* Add two more overloads to interface</PackageReleaseNotes>

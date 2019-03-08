@@ -4,6 +4,7 @@ Library to map IP addresses (both IPv4 and IPv6) to a country, available as [NuG
 * All registries ([RIPE](https://www.ripe.net/), [APNIC](https://www.apnic.net/), [ARIN](https://www.arin.net/), [LACNIC](http://www.lacnic.net/) and [AFRINIC](https://www.afrinic.net/)) ([NuGet](https://www.nuget.org/packages/IP-2-Country.Registries/))
 * [DB-IP](https://db-ip.com/) ([NuGet](https://www.nuget.org/packages/IP-2-Country.DbIp/))
 * [IP2IQ](http://www.ip2iq.com/) ([NuGet](https://www.nuget.org/packages/IP-2-Country.IP2IQ/))
+* [IP2Location Lite](https://lite.ip2location.com/) ([NuGet](https://www.nuget.org/packages/IP-2-Country.IP2Location.Lite/))
 * [IPToASN](https://iptoasn.com/) ([NuGet](https://www.nuget.org/packages/IP-2-Country.IpToAsn/))
 * [Ludost](https://ip.ludost.net/) ([NuGet](https://www.nuget.org/packages/IP-2-Country.Ludost/))
 * [Markus Go's ip-countryside](https://github.com/Markus-Go/ip-countryside/) ([NuGet](https://www.nuget.org/packages/IP-2-Country.MarkusGo/))

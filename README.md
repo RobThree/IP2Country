@@ -54,23 +54,23 @@ IDictionary<IPAddress, IIPRangeCountry> ResolveAsDictionary(IEnumerable<IPAddres
 
 ## Datasources
 
-Besides the provided datasources it's very simple to implement your own datasource; all you need to do is implement a single method (`IEnumerable<IIPRangeCountry> Read()`) from a single interface (`IIP2CountryDataSource`). It's up to you wether you want to use a CSV file, binary file, database, Excel file or whatever other method of storage you can imagine. As long as you can provide IP ranges (as start/end pairs) and country data (as string) as an IEnumerable source you're done. This repository has lots of examples of CSV datasources but it's perfectly fine to build and provide your own datasource.
+Besides the provided datasources it's very simple to implement your own datasource; all you need to do is implement a single method (`IEnumerable<IIPRangeCountry> Read()`) from a single interface (`IIP2CountryDataSource`). It's up to you wfether you want to use a CSV file, binary file, database, Excel file or whatever other method of storage you can imagine. As long as you can provide IP ranges (as start/end pairs) and country data (as string) as an IEnumerable source you're done. This repository has lots of examples of CSV datasources but it's perfectly fine to build and provide your own datasource.
 
 ### A word on the actual data
 
-The provided datasources are nothing but simple "CSV file readers". It's up to you to download the actual data files (and cache them for later use). The DemoApp contains an example of downloading files into a temp directory and caching them. Ofcourse you're free to implement your own download/cache mechanism. As long as you can provide a datasource that implements the `IIP2CountryDataSource` interface this library doesn't care about the rest.
+The provided datasources are nothing but simple "CSV file readers". It's up to you to download the actual data files (and cache them for later use). The DemoApp contains an example of downloading files into a temp directory and caching them. Of course you're free to implement your own download/cache mechanism. As long as you can provide a datasource that implements the `IIP2CountryDataSource` interface this library doesn't care about the rest.
 
 More on actual, compatible, databases can be found [in the wiki](../../wiki/IP-to-country-databases)
 
 ## Accuracy
 
-The accuracy depends entirely on the accuracy of the datasource. This library has no built-in data whatsoever. You _may_ also want to ensure your datasource doesn't provide ranges to the `IP2CountryResolver` that overlap. It's up to you / the datasource to ensure the data is as acurate as possible (and as up-to-date as possible).
+The accuracy depends entirely on the accuracy of the datasource. This library has no built-in data whatsoever. You _may_ also want to ensure your datasource doesn't provide ranges to the `IP2CountryResolver` that overlap. It's up to you / the datasource to ensure the data is as accurate as possible (and as up-to-date as possible).
 
 ## Benchmarks / performance:
 
-On an [Intel Xeon E3-1225 v3](https://ark.intel.com/products/75461/Intel-Xeon-Processor-E3-1225-v3-8M-Cache-3_20-GHz) CPU it's perfectly possible to achieve over **2,000,000 lookups per second** (yes, that is over 2 million on an CPU from 2013!). Ofcourse results will vary depending on the size of the dataset, the usage, the CPU and other factors.
+On an [Intel Xeon E3-1225 v3](https://ark.intel.com/products/75461/Intel-Xeon-Processor-E3-1225-v3-8M-Cache-3_20-GHz) CPU it's perfectly possible to achieve over **2,000,000 lookups per second** (yes, that is over 2 million on an CPU from 2013!). Of course results will vary depending on the size of the dataset, the usage, the CPU and other factors.
 
-Note that when an instance of an `IP2CountryResolver` is created it will load **all** the data from the datasource into memory. Naturally this is a costly, though one-time, operation. As long as the `IP2CountryResolver` object is kept alive you can (re)use it to resolve IP adresses. We recommend creating an instance once and keeping it around as long as possible. Create a new instance and swap it out with the old one if there is new data available from the datasource.
+Note that when an instance of an `IP2CountryResolver` is created it will load **all** the data from the datasource into memory. Naturally this is a costly, though one-time, operation. As long as the `IP2CountryResolver` object is kept alive you can (re)use it to resolve IP addresses. We recommend creating an instance once and keeping it around as long as possible. Create a new instance and swap it out with the old one if there is new data available from the datasource.
 
 ## Icon
 Source: [ShareIcon.Net](https://www.shareicon.net/internet-marketing-geo-geo-location-geomarketing-ip-address-isp-address-target-888208)

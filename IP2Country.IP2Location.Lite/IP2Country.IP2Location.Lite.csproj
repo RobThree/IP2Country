@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net45;net451;net452;net46;net461;net462;net47;net471;netcoreapp2.0;netstandard2.0</TargetFrameworks>
+    <PackageId>IP-2-Country.IP2Location.Lite</PackageId>
+    <Authors>RobIII</Authors>
+    <Company>Devcorner.nl</Company>
+    <Product>IP-2-Country.IP2Location.Lite</Product>
+    <Copyright>(C) 2018 - 2019 Devcorner.nl</Copyright>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/RobThree/IP2Country</PackageProjectUrl>
+    <PackageTags>IP Geolocation Country IP2Country IpToCountry IP2Location IP2Location.Lite</PackageTags>
+    <PackageReleaseNotes>* Initial release</PackageReleaseNotes>
+    <Description>IP2Location Datasource for https://lite.ip2location.com/</Description>
+    <PackageIconUrl>https://raw.githubusercontent.com/RobThree/IP2Country/master/icons/ip2location.png</PackageIconUrl>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IP2Country.DataSources.CSVFile\IP2Country.DataSources.CSVFile.csproj" />
+    <ProjectReference Include="..\IP2Country\IP2Country.csproj" />
+  </ItemGroup>
+
+</Project>

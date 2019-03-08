@@ -22,7 +22,6 @@ namespace IP2Country.Registries
 
     public class RegistryCSVRecordParser : BaseCSVRecordParser<RegistryIPRangeCountry>
     {
-        private static readonly IPAddressComparer _comparer = IPAddressComparer.Default;
         private static readonly string[] _emptyextensions = new string[0];
 
         public override RegistryIPRangeCountry ParseRecord(string record)

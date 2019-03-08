@@ -20,8 +20,6 @@ namespace IP2Country.MaxMind
 
     public class MaxMindGeoLiteIPCSVRecordParser : BaseCSVRecordParser<MaxMindGeoLiteIPIPRangeCountry>
     {
-        private static readonly IPAddressComparer _comparer = IPAddressComparer.Default;
-
         public override MaxMindGeoLiteIPIPRangeCountry ParseRecord(string record)
         {
             if (record == null)

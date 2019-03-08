@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\IP2Country.DbIp\IP2Country.DbIp.csproj" />
     <ProjectReference Include="..\IP2Country.IP2IQ\IP2Country.IP2IQ.csproj" />
+    <ProjectReference Include="..\IP2Country.IP2Location.Lite\IP2Country.IP2Location.Lite.csproj" />
     <ProjectReference Include="..\IP2Country.IpToAsn\IP2Country.IpToAsn.csproj" />
     <ProjectReference Include="..\IP2Country.Ludost\IP2Country.Ludost.csproj" />
     <ProjectReference Include="..\IP2Country.MarkusGo\IP2Country.MarkusGo.csproj" />

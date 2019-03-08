@@ -20,8 +20,6 @@ namespace IP2Country.IP2IQ
 
     public class IP2IQCSVRecordParser : BaseCSVRecordParser<IP2IQIPRangeCountry>
     {
-        private static readonly IPAddressComparer _comparer = IPAddressComparer.Default;
-
         public override IP2IQIPRangeCountry ParseRecord(string record)
         {
             if (record == null)

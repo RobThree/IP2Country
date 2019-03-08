@@ -62,9 +62,9 @@ The provided datasources are nothing but simple "CSV file readers". It's up to y
 
 More on actual, compatible, databases can be found [in the wiki](../../wiki/IP-to-country-databases)
 
-## Acuracy
+## Accuracy
 
-The acuracy depends entirely on the acuracy of the datasource. This library has no built-in data whatsoever. You _may_ also want to ensure your datasource doesn't provide ranges to the `IP2CountryResolver` that overlap. It's up to you / the datasource to ensure the data is as acurate as possible (and as up-to-date as possible).
+The accuracy depends entirely on the accuracy of the datasource. This library has no built-in data whatsoever. You _may_ also want to ensure your datasource doesn't provide ranges to the `IP2CountryResolver` that overlap. It's up to you / the datasource to ensure the data is as acurate as possible (and as up-to-date as possible).
 
 ## Benchmarks / performance:
 

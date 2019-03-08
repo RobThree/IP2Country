@@ -12,10 +12,8 @@
     <PackageProjectUrl>https://github.com/RobThree/IP2Country</PackageProjectUrl>
     <PackageTags>IP Geolocation Country IP2Country IpToCountry DbIp Db-Ip</PackageTags>
     <PackageReleaseNotes>* Bring back NetStandard2.0 support</PackageReleaseNotes>
-    <Description>IP2Location Datasource for https://db-ip.com/</Description>
+    <Description>IP-2-Country Datasource for https://db-ip.com/</Description>
     <PackageIconUrl>https://raw.githubusercontent.com/RobThree/IP2Country/master/icons/dbip.png</PackageIconUrl>
-    <AssemblyVersion>1.0.3.0</AssemblyVersion>
-    <FileVersion>1.0.3.0</FileVersion>
     <Version>1.0.3</Version>
   </PropertyGroup>
 

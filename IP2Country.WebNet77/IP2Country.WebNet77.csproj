@@ -12,11 +12,9 @@
     <PackageProjectUrl>https://github.com/RobThree/IP2Country</PackageProjectUrl>
     <PackageTags>IP Geolocation Country IP2Country IpToCountry WebNet77 Software77</PackageTags>
     <PackageReleaseNotes>* Bring back NetStandard2.0 support</PackageReleaseNotes>
-    <Description>IP2Location Datasource for http://software77.net/geo-ip</Description>
+    <Description>IP-2-Country Datasource for http://software77.net/geo-ip</Description>
     <PackageIconUrl>https://raw.githubusercontent.com/RobThree/IP2Country/master/icons/webnet77.png</PackageIconUrl>
     <Version>1.0.4</Version>
-    <AssemblyVersion>1.0.4.0</AssemblyVersion>
-    <FileVersion>1.0.4.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

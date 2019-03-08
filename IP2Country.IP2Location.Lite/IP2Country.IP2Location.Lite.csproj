@@ -12,7 +12,7 @@
     <PackageProjectUrl>https://github.com/RobThree/IP2Country</PackageProjectUrl>
     <PackageTags>IP Geolocation Country IP2Country IpToCountry IP2Location IP2Location.Lite</PackageTags>
     <PackageReleaseNotes>* Initial release</PackageReleaseNotes>
-    <Description>IP2Location Datasource for https://lite.ip2location.com/</Description>
+    <Description>IP-2-Country Datasource for https://lite.ip2location.com/</Description>
     <PackageIconUrl>https://raw.githubusercontent.com/RobThree/IP2Country/master/icons/ip2location.png</PackageIconUrl>
     <Version>1.0.0</Version>
   </PropertyGroup>

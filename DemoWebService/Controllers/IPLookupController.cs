@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace DemoWebService.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("lookup")]
     [ApiController]
     public class IPLookupController : ControllerBase
     {

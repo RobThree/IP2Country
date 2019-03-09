@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;net451;net452;net46;net461;net462;net47;net471;netcoreapp2.0;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>netstandard1.5</TargetFrameworks>
     <PackageId>IP-2-Country.MaxMind</PackageId>
     <Authors>RobIII</Authors>
     <Company>Devcorner.nl</Company>
@@ -11,11 +11,15 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/RobThree/IP2Country</PackageProjectUrl>
     <PackageTags>IP Geolocation Country IP2Country IpToCountry MaxMind</PackageTags>
-    <PackageReleaseNotes>* Bring back NetStandard2.0 support</PackageReleaseNotes>
+    <PackageReleaseNotes>* Support for new GeoLITE2 format</PackageReleaseNotes>
     <Description>IP-2-Country Datasource for https://dev.maxmind.com/geoip/legacy/geolite/</Description>
     <PackageIconUrl>https://raw.githubusercontent.com/RobThree/IP2Country/master/icons/maxmind.png</PackageIconUrl>
-    <Version>1.0.3</Version>
+    <Version>1.1.0</Version>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IPAddressRange" Version="3.2.0" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\IP2Country.DataSources.CSVFile\IP2Country.DataSources.CSVFile.csproj" />

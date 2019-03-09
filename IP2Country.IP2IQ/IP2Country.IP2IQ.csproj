@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;net451;net452;net46;net461;net462;net47;net471;netcoreapp2.0;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>netstandard1.5</TargetFrameworks>
     <PackageId>IP-2-Country.IP2IQ</PackageId>
     <Authors>RobIII</Authors>
     <Company>Devcorner.nl</Company>
@@ -11,10 +11,10 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/RobThree/IP2Country</PackageProjectUrl>
     <PackageTags>IP Geolocation Country IP2Country IpToCountry IP2IQ</PackageTags>
-    <PackageReleaseNotes>* Bring back NetStandard2.0 support</PackageReleaseNotes>
+    <PackageReleaseNotes>* NetStandard 1.5 support</PackageReleaseNotes>
     <Description>IP-2-Country Datasource for http://www.ip2iq.com/</Description>
     <PackageIconUrl>https://raw.githubusercontent.com/RobThree/IP2Country/master/icons/ip2iq.png</PackageIconUrl>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
   </PropertyGroup>
 
   <ItemGroup>

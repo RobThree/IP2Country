@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;net451;net452;net46;net461;net462;net47;net471;netcoreapp2.0;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>netstandard1.5</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>IP-2-Country.DataSources.CSVFile</PackageId>
     <Product>IP-2-Country.DataSources.CSVFile</Product>
@@ -11,10 +11,10 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/RobThree/IP2Country</PackageProjectUrl>
     <PackageTags>IP Geolocation Country IP2Country IpToCountry</PackageTags>
-    <PackageReleaseNotes>* Bring back NetStandard2.0 support</PackageReleaseNotes>
+    <PackageReleaseNotes>* NetStandard 1.5 support</PackageReleaseNotes>
     <Description>Provides base classes for handling CSV files (plain, gzipped or zipped) for IP2Country</Description>
     <PackageIconUrl>https://raw.githubusercontent.com/RobThree/IP2Country/master/icons/csvdatasource.png</PackageIconUrl>
-    <Version>1.0.5</Version>
+    <Version>1.0.6</Version>
   </PropertyGroup>
 
   <ItemGroup>

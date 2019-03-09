@@ -43,7 +43,7 @@ namespace IP2Country.IP2Location.Lite
             if (record == null)
                 throw new ArgumentNullException(nameof(record));
 
-            var data = ReadValues(record).ToArray();
+            var data = ReadQuotedValues(record).ToArray();
             switch (data.Length)
             {
                 case 4:     //DB1
@@ -106,31 +106,8 @@ namespace IP2Country.IP2Location.Lite
                 default:
                     if (IgnoreErrors)
                         return null;
-                    throw new UnexpectedNumberOfFieldsException(data.Length, data.Length);
+                    throw new UnexpectedNumberOfFieldsException(data.Length, new[] { 4, 6, 8, 9, 10 } );
             }
-        }
-
-        private static IEnumerable<string> ReadValues(string record)
-        {
-            var inquotes = false;
-            var fieldvalue = new StringBuilder(1024);   //Longest field is 128 currently, so 1024 should suffice for a while
-            for (var i = 0; i < record.Length; i++)
-            {
-                if ('"' == record[i])
-                {
-                    inquotes = !inquotes;
-                }
-                else if (',' == record[i] && !inquotes)
-                {
-                    yield return fieldvalue.ToString();
-                    fieldvalue.Clear();
-                }
-                else
-                {
-                    fieldvalue.Append(record[i]);
-                }
-            }
-            yield return fieldvalue.ToString();
         }
 
         private IPAddress ParseIp(string value)

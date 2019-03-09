@@ -12,5 +12,8 @@ namespace IP2Country.DataSources.CSVFile
     {
         public UnexpectedNumberOfFieldsException(int actualFieldCount, int expectedFieldCount)
             : base($"Unexpected number of fields: {actualFieldCount}, expected: {expectedFieldCount}") { }
+
+        public UnexpectedNumberOfFieldsException(int actualFieldCount, int[] expectedFieldCounts)
+            : base($"Unexpected number of fields: {actualFieldCount}, expected on of: {string.Join(",", expectedFieldCounts)}") { }
     }
 }

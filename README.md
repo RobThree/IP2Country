@@ -31,7 +31,7 @@ var result = resolver.Resolve("172.217.17.110");
 Console.WriteLine("Country: " + result?.Country);
 ```
 
-Depending on the datasource some more information _may_ be returned (for example: the `IP-2-Country.Registries` package returns the `Registry`, `Date`, `Status` and even some `Extensions` when available). You may need to cast to the returned type in case you need more than the` IIPRangeCountry` interface provides:
+Depending on the datasource some more information _may_ be returned (for example: the `IP-2-Country.Registries` package returns the `Registry`, `Date`, `Status` and even some `Extensions` when available). You may need to cast to the returned type in case you need more than the `IIPRangeCountry` interface provides:
 
 ```c#
 var result = (RegistryIPRangeCountry)resolver.Resolve("172.217.17.110");

@@ -58,7 +58,7 @@ Besides the provided datasources it's very simple to implement your own datasour
 
 ### A word on the actual data
 
-The provided datasources are nothing but simple "CSV file readers". It's up to you to download the actual data files (and cache them for later use). The DemoApp contains an example of downloading files into a temp directory and caching them. You can implement your own download/cache mechanism as you see fit for your project. As long as you can provide a datasource that implements the `IIP2CountryDataSource` interface this library doesn't care about the rest.
+The provided datasources are nothing but simple "CSV file readers". It's up to you to download the actual data files (and cache them for later use). The DemoApp contains an example of downloading files into a temp directory and caching them. You can implement your own download/cache mechanism as you see fit for your project. As long as you can provide a datasource that implements the [`IIP2CountryDataSource`](IP2Country/Datasources/IIP2CountryDataSource.cs) interface this library doesn't care about the rest.
 
 More on actual, compatible, databases can be found [in the wiki](../../wiki/IP-to-country-databases)
 

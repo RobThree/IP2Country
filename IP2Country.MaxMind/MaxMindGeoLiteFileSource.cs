@@ -3,6 +3,7 @@ using IP2Country.DataSources.CSVFile;
 using IP2Country.Entities;
 using NetTools;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -20,7 +21,7 @@ namespace IP2Country.MaxMind
         All = 255
     }
 
-    public class MaxMindGeoLiteIPFileSource : IIP2CountryDataSource
+    public class MaxMindGeoLiteFileSource : IIP2CountryDataSource
     {
         private readonly string _zipfile;
         private readonly string[] _preferredlanguages;
@@ -28,16 +29,16 @@ namespace IP2Country.MaxMind
         private readonly static BlockOptions DEFAULTBLOCKOPTIONS = BlockOptions.All;
         private readonly Regex _blocksfilter = new Regex(@"-Blocks-IPv(\d+).csv", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
 
-        public MaxMindGeoLiteIPFileSource(string zipFile)
+        public MaxMindGeoLiteFileSource(string zipFile)
             : this(zipFile, DEFAULTBLOCKOPTIONS) { }
 
-        public MaxMindGeoLiteIPFileSource(string zipFile, BlockOptions blockOptions)
+        public MaxMindGeoLiteFileSource(string zipFile, BlockOptions blockOptions)
             : this(zipFile, new[] { "en" }, blockOptions) { }
 
-        public MaxMindGeoLiteIPFileSource(string zipFile, string[] preferredLanguages)
+        public MaxMindGeoLiteFileSource(string zipFile, string[] preferredLanguages)
             : this(zipFile, preferredLanguages, DEFAULTBLOCKOPTIONS) { }
 
-        public MaxMindGeoLiteIPFileSource(string zipFile, string[] preferredLanguages, BlockOptions blockOptions)
+        public MaxMindGeoLiteFileSource(string zipFile, string[] preferredLanguages, BlockOptions blockOptions)
         {
             _zipfile = zipFile ?? throw new ArgumentNullException(nameof(zipFile));
             if (preferredLanguages.Length == 0)
@@ -58,11 +59,11 @@ namespace IP2Country.MaxMind
                     .Select(l => csvfiles.FirstOrDefault(f => f.Name.EndsWith($"locations-{l}.csv", StringComparison.OrdinalIgnoreCase)))
                     .FirstOrDefault(e => e != null);
 
-                if (geofile == null)
-                    throw new InvalidOperationException("Unable to locate a locations file");
-
-                // Next, read all locations for lookup later
-                var lookup = ReadGeonames(geofile).ToDictionary(e => e.Id);
+                // Next, read all locations for lookup later or use an empty dummy lookup
+                var lookup = (geofile != null
+                    ? ReadGeonames(geofile)
+                    : Enumerable.Empty<MaxMindGeoLiteGeonameCountry>()
+                ).ToDictionary(e => e.GeoNameId);
 
                 // Now start reading the actual files
                 var parser = new MaxMindGeoLiteIPCSVRecordParser(lookup);
@@ -105,7 +106,7 @@ namespace IP2Country.MaxMind
             }
         }
 
-        private static IEnumerable<GeonameEntry> ReadGeonames(ZipArchiveEntry geoEntry)
+        private static IEnumerable<MaxMindGeoLiteGeonameEntry> ReadGeonames(ZipArchiveEntry geoEntry)
         {
             var geoparser = new MaxMindGeoLiteGeonameCSVRecordParser();
             foreach (var line in ReadArchiveEntry(geoEntry))
@@ -113,52 +114,69 @@ namespace IP2Country.MaxMind
         }
     }
 
-    public class MaxMindGeoLiteIPCSVRecordParser : BaseCSVRecordParser<MaxMindGeoLiteIPIPRangeCountry>
+    public class MaxMindGeoLiteIPCSVRecordParser : BaseCSVRecordParser<IPRangeCountry>
     {
-        private readonly IDictionary<int, GeonameEntry> _geolookup;
+        private readonly IDictionary<int, MaxMindGeoLiteGeonameEntry> _geolookup;
 
-        public MaxMindGeoLiteIPCSVRecordParser(IDictionary<int, GeonameEntry> geoNames)
+        public MaxMindGeoLiteIPCSVRecordParser(IDictionary<int, MaxMindGeoLiteGeonameEntry> geoNames)
         {
             _geolookup = geoNames ?? throw new ArgumentNullException(nameof(geoNames));
         }
 
-        public override MaxMindGeoLiteIPIPRangeCountry ParseRecord(string record)
+        public override IPRangeCountry ParseRecord(string record)
         {
             if (record == null)
                 throw new ArgumentNullException(nameof(record));
             var data = ReadQuotedValues(record).ToArray();
 
-            if (data.Length > 3)
+            // Minimum of 3 columns (ASN file)
+            if (data.Length >= 3)
             {
                 var ipnetwork = IPAddressRange.Parse(data[0]);
-                var country = int.TryParse(data[1], out var cntid) ? _geolookup.TryGetValue(cntid, out var cnt) ? cnt : null : null;
-                var regcountry = int.TryParse(data[2], out var regid) ? _geolookup.TryGetValue(regid, out var reg) ? reg : null : null;
-                var repcountry = int.TryParse(data[3], out var repid) ? _geolookup.TryGetValue(repid, out var rep) ? rep : null : null;
+
+                MaxMindGeoLiteGeonameEntry country = null, regcountry = null, repcountry = null;
+
+                // Only city/country files contain these columns; ASN file doesn't
+                if (data.Length > 3)    
+                {
+                    country = int.TryParse(data[1], out var cntid) ? _geolookup.TryGetValue(cntid, out var cnt) ? cnt : null : null;
+                    regcountry = int.TryParse(data[2], out var regid) ? _geolookup.TryGetValue(regid, out var reg) ? reg : null : null;
+                    repcountry = int.TryParse(data[3], out var repid) ? _geolookup.TryGetValue(repid, out var rep) ? rep : null : null;
+                }
 
 #pragma warning disable CS0612
                 switch (data.Length)
                 {
+                    case 3:
+                        return new MaxMindGeoLiteASN
+                        {
+                            Start = ipnetwork.Begin,
+                            End = ipnetwork.End,
+                            Country = null,
+                            ASN = int.Parse(data[1]),
+                            Organisation = data[2]
+                        };
                     case 6:
-                        return new MaxMindGeoLiteIPIPRangeCountry
+                        return new MaxMindGeoLiteIPRangeCountry
                         {
                             Start = ipnetwork.Begin,
                             End = ipnetwork.End,
                             Country = country?.ISOCode,
-                            CountryInfo = country,
-                            RegisteredCountry = regcountry,
-                            RepresentedCountry = repcountry,
+                            Location = country,
+                            RegisteredLocation = regcountry,
+                            RepresentedLocation = repcountry,
                             IsAnonymousProxy = ParseBool(data[4]),
                             IsSatelliteProvider = ParseBool(data[5])
                         };
                     case 10:
-                        return new MaxMindGeoLiteIPIPRangeCicty
+                        return new MaxMindGeoLiteIPRangeCity
                         {
                             Start = ipnetwork.Begin,
                             End = ipnetwork.End,
                             Country = country?.ISOCode,
-                            CountryInfo = country,
-                            RegisteredCountry = regcountry,
-                            RepresentedCountry = repcountry,
+                            Location = country,
+                            RegisteredLocation = regcountry,
+                            RepresentedLocation = repcountry,
                             IsAnonymousProxy = ParseBool(data[4]),
                             IsSatelliteProvider = ParseBool(data[5]),
                             PostalCode = data[6],
@@ -173,7 +191,7 @@ namespace IP2Country.MaxMind
                 }
 #pragma warning restore CS0612
             }
-            throw new UnexpectedNumberOfFieldsException(data.Length, new[] { 6, 10 });
+            throw new UnexpectedNumberOfFieldsException(data.Length, new[] { 3, 6, 10 });
         }
 
         private static bool ParseBool(string value)
@@ -187,9 +205,9 @@ namespace IP2Country.MaxMind
         }
     }
 
-    internal class MaxMindGeoLiteGeonameCSVRecordParser : BaseCSVRecordParser<GeonameEntry>
+    internal class MaxMindGeoLiteGeonameCSVRecordParser : BaseCSVRecordParser<MaxMindGeoLiteGeonameEntry>
     {
-        public override GeonameEntry ParseRecord(string record)
+        public override MaxMindGeoLiteGeonameEntry ParseRecord(string record)
         {
             if (record == null)
                 throw new ArgumentNullException(nameof(record));
@@ -198,9 +216,9 @@ namespace IP2Country.MaxMind
             switch (data.Length)
             {
                 case 7:
-                    return new GeonameCountry
+                    return new MaxMindGeoLiteGeonameCountry
                     {
-                        Id = int.Parse(data[0]),
+                        GeoNameId = int.Parse(data[0]),
                         LocaleCode = data[1],
                         ContinentCode = data[2],
                         ContinentName = data[3],
@@ -209,9 +227,9 @@ namespace IP2Country.MaxMind
                         IsInEU = data[6] != "0"
                     };
                 case 14:
-                    return new GeonameCity
+                    return new MaxMindGeoLiteGeonameCity
                     {
-                        Id = int.Parse(data[0]),
+                        GeoNameId = int.Parse(data[0]),
                         LocaleCode = data[1],
                         ContinentCode = data[2],
                         ContinentName = data[3],

@@ -3,18 +3,18 @@ using System;
 
 namespace IP2Country.MaxMind
 {
-    public class MaxMindGeoLiteIPIPRangeCountry : IPRangeCountry
+    public class MaxMindGeoLiteIPRangeCountry : IPRangeCountry
     {
-        public GeonameEntry CountryInfo { get; set; }
-        public GeonameEntry RegisteredCountry { get; set; }
-        public GeonameEntry RepresentedCountry { get; set; }
+        public MaxMindGeoLiteGeonameEntry Location { get; set; }
+        public MaxMindGeoLiteGeonameEntry RegisteredLocation { get; set; }
+        public MaxMindGeoLiteGeonameEntry RepresentedLocation { get; set; }
         [Obsolete]
         public bool IsAnonymousProxy { get; set; }
         [Obsolete]
         public bool IsSatelliteProvider { get; set; }
     }
 
-    public class MaxMindGeoLiteIPIPRangeCicty : MaxMindGeoLiteIPIPRangeCountry
+    public class MaxMindGeoLiteIPRangeCity : MaxMindGeoLiteIPRangeCountry
     {
         public string PostalCode { get; set; }
         public double? Latitude { get; set; }
@@ -22,9 +22,15 @@ namespace IP2Country.MaxMind
         public int? AccuracyRadius { get; set; }
     }
 
-    public abstract class GeonameEntry
+    public class MaxMindGeoLiteASN : IPRangeCountry
     {
-        public int Id { get; set; }
+        public int ASN { get; set; }
+        public string Organisation { get; set; }
+    }
+
+    public abstract class MaxMindGeoLiteGeonameEntry
+    {
+        public int GeoNameId { get; set; }
         public string CountryName { get; set; }
         public string LocaleCode { get; set; }
         public string ContinentCode { get; set; }
@@ -33,11 +39,11 @@ namespace IP2Country.MaxMind
         public bool IsInEU { get; set; }
     }
 
-    public class GeonameCountry : GeonameEntry
+    public class MaxMindGeoLiteGeonameCountry : MaxMindGeoLiteGeonameEntry
     {
     }
 
-    public class GeonameCity : GeonameEntry
+    public class MaxMindGeoLiteGeonameCity : MaxMindGeoLiteGeonameEntry
     {
         public string SubDivision1ISOCode { get; set; }
         public string SubDivision1Name { get; set; }

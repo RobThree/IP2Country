@@ -18,10 +18,10 @@ This library provides an easy to implement interface (`IIP2CountryDataSource`) t
 In general, you'll want to use one of the above mentioned datasources. You can combine them but it's recommended to use a single one. Install the desired NuGet package (e.g. `IP-2-Country.MaxMind`) which will also pull in the base package (`IP-2-Country`) and the generic CSV parser (`IP-2-Country.DataSources.CSVFile`). Download the datafiles (example code is provided in the DemoApp in this repository) and create an IP2CountryResolver object:
 
 ```c#
-var resolver = new IP2CountryResolver(new IIP2CountryDataSource[] {
-    new MaxMindGeoLiteIPCSVFileSource(@"D:\files\maxmindipv4.dat"),
-    new MaxMindGeoLiteIPCSVFileSource(@"D:\files\maxmindipv6.dat")
-});
+var resolver = new IP2CountryResolver(
+    // Country level file
+    new MaxMindGeoLiteFileSource(@"D:\files\GeoLite2-Country-CSV_20190305.zip")
+);
 ```
 
 And you're done! Now you can resolve IP addresses:

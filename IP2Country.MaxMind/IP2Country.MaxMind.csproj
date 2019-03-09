@@ -14,7 +14,7 @@
     <PackageReleaseNotes>* Support for new GeoLITE2 format</PackageReleaseNotes>
     <Description>IP-2-Country Datasource for https://dev.maxmind.com/geoip/legacy/geolite/</Description>
     <PackageIconUrl>https://raw.githubusercontent.com/RobThree/IP2Country/master/icons/maxmind.png</PackageIconUrl>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

@@ -10,6 +10,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using System;
 using System.IO;
+using System.Net;
 using System.Reflection;
 using System.Text.Json.Serialization;
 
@@ -39,6 +40,7 @@ namespace DemoWebService
             services.AddSwaggerGen(c =>
                 {
                     c.SwaggerDoc("v1", new OpenApiInfo { Title = "IP Lookup", Version = "v1" });
+                    c.MapType<IPAddress>(() => new OpenApiSchema { Type = typeof(string).Name });
 
                     // Set the comments path for the Swagger JSON and UI.
                     c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));

@@ -31,15 +31,13 @@ namespace DemoWebService.Helpers
                 using (var filestream = File.Create(path))
                 using (var contentstream = DownloadAsync(url))
                 {
-                    await (await contentstream).CopyToAsync(filestream);
+                    await (await contentstream.ConfigureAwait(false))
+                        .CopyToAsync(filestream).ConfigureAwait(false);
                 }
             }
             return path;
         }
 
-        private static bool IsFileExpired(string path, TimeSpan ttl)
-        {
-            return (!File.Exists(path) || (DateTime.UtcNow - new FileInfo(path).LastWriteTimeUtc) > ttl);
-        }
+        private static bool IsFileExpired(string path, TimeSpan ttl) => (!File.Exists(path) || (DateTime.UtcNow - new FileInfo(path).LastWriteTimeUtc) > ttl);
     }
 }

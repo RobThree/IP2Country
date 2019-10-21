@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 
 namespace DemoWebService.Helpers
 {
-    public class WebClient
+    public class WebClient : IDisposable
     {
-        public static readonly TimeSpan DEFAULT_TIMEOUT = TimeSpan.FromSeconds(30);
+        public static readonly TimeSpan DEFAULTTIMEOUT = TimeSpan.FromSeconds(30);
 
         private static readonly string _appname = Assembly.GetExecutingAssembly().GetName().Name;
         private static readonly string _appversion = Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
         private readonly HttpClient _httpclient;
+        private readonly HttpClientHandler _httpclienthandler;
 
         public IWebProxy Proxy { get; set; }
         public ICredentials Credentials { get; set; }
@@ -24,9 +25,10 @@ namespace DemoWebService.Helpers
             Credentials = credentials;
             Proxy = proxy;
 
-            _httpclient = new HttpClient(GetHttpClientHandler())
+            _httpclienthandler = GetHttpClientHandler();
+            _httpclient = new HttpClient(_httpclienthandler)
             {
-                Timeout = timeOut ?? DEFAULT_TIMEOUT,
+                Timeout = timeOut ?? DEFAULTTIMEOUT,
             };
 
             _httpclient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(_appname, _appversion));
@@ -43,23 +45,44 @@ namespace DemoWebService.Helpers
         {
             if (url == null)
                 throw new ArgumentNullException(nameof(url));
-            return await _httpclient.GetStreamAsync(url);
+            return await _httpclient.GetStreamAsync(url).ConfigureAwait(false);
         }
 
-        private HttpClientHandler GetHttpClientHandler()
+        private HttpClientHandler GetHttpClientHandler() => new HttpClientHandler()
         {
-            return new HttpClientHandler()
+            Proxy = Proxy,
+            UseProxy = Proxy != null,
+            PreAuthenticate = Credentials != null,
+            UseDefaultCredentials = Credentials != null,
+            Credentials = Credentials,
+            AllowAutoRedirect = true,
+            AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip,
+            MaxAutomaticRedirections = 3,
+            UseCookies = false
+        };
+
+        #region IDisposable Support
+        private bool _disposed = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
             {
-                Proxy = Proxy,
-                UseProxy = Proxy != null,
-                PreAuthenticate = Credentials != null,
-                UseDefaultCredentials = Credentials != null,
-                Credentials = Credentials,
-                AllowAutoRedirect = true,
-                AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip,
-                MaxAutomaticRedirections = 3,
-                UseCookies = false
-            };
+                if (disposing)
+                {
+                    _httpclient?.Dispose();
+                    _httpclienthandler?.Dispose();
+                }
+
+                _disposed = true;
+            }
         }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        #endregion
     }
 }

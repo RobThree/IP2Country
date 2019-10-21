@@ -18,7 +18,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IPAddressRange" Version="3.2.0" />
+    <PackageReference Include="IPAddressRange" Version="4.0.0" />
   </ItemGroup>
 
   <ItemGroup>

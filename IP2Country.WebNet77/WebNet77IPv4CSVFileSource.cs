@@ -12,10 +12,7 @@ namespace IP2Country.WebNet77
         public WebNet77IPv4CSVFileSource(string file)
             : base(file, new WebNet77IPv4CSVRecordParser()) { }
 
-        public override IEnumerable<IIPRangeCountry> Read()
-        {
-            return ReadFile(Path, Parser);
-        }
+        public override IEnumerable<IIPRangeCountry> Read() => ReadFile(Path, Parser);
     }
 
     public class WebNet77IPv4CSVRecordParser : BaseCSVRecordParser<WebNet77IPv4IPRangeCountry>

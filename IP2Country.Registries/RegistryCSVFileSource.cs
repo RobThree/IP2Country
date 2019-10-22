@@ -14,15 +14,12 @@ namespace IP2Country.Registries
         public RegistryCSVFileSource(string file)
             : base(file, new RegistryCSVRecordParser()) { }
 
-        public override IEnumerable<IIPRangeCountry> Read()
-        {
-            return ReadFile(Path, Parser);
-        }
+        public override IEnumerable<IIPRangeCountry> Read() => ReadFile(Path, Parser);
     }
 
     public class RegistryCSVRecordParser : BaseCSVRecordParser<RegistryIPRangeCountry>
     {
-        private static readonly string[] _emptyextensions = new string[0];
+        private static readonly string[] _emptyextensions = Array.Empty<string>();
 
         public override RegistryIPRangeCountry ParseRecord(string record)
         {
@@ -39,7 +36,7 @@ namespace IP2Country.Registries
                     Registry = data[0],
                     Country = data[1],
                     Start = start,
-                    End = ParseEndIP(start, int.Parse(data[4])),
+                    End = ParseEndIP(start, int.Parse(data[4], CultureInfo.InvariantCulture)),
                     Date = ParseDate(data[5]),
                     Status = data[6],
                     Extensions = data.Length > 7 ? data.Skip(7).ToArray() : _emptyextensions

@@ -15,9 +15,6 @@ namespace IP2Country.Tests.Mocks
             _data = data.ToArray();
         }
 
-        public IEnumerable<IIPRangeCountry> Read()
-        {
-            return _data;
-        }
+        public IEnumerable<IIPRangeCountry> Read() => _data;
     }
 }

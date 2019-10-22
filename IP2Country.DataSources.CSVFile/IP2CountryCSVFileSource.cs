@@ -39,19 +39,13 @@ namespace IP2Country.DataSources.CSVFile
             return true;
         }
 
-        protected static bool IsZIP(string path)
-        {
-            return CheckMagicNumber(path, 0, new byte[] { 0x50, 0x4B, 0x03, 0x04 });
-        }
+        protected static bool IsZIP(string path) => CheckMagicNumber(path, 0, new byte[] { 0x50, 0x4B, 0x03, 0x04 });
 
 
-        protected static bool IsGZ(string path)
-        {
-            return CheckMagicNumber(path, 0, new byte[] { 0x1F, 0x8B });
-        }
+        protected static bool IsGZ(string path) => CheckMagicNumber(path, 0, new byte[] { 0x1F, 0x8B });
 
-        protected IEnumerable<U> ReadFile<U>(string path, ICSVRecordParser<U> parser)
-            where U : IIPRangeCountry
+        protected IEnumerable<TRecord> ReadFile<TRecord>(string path, ICSVRecordParser<TRecord> parser)
+            where TRecord : IIPRangeCountry
         {
             if (IsZIP(path))
             {
@@ -77,14 +71,11 @@ namespace IP2Country.DataSources.CSVFile
             }
         }
 
-        public IEnumerable<U> Read<U>(Stream stream, ICSVRecordParser<U> parser)
-            where U : IIPRangeCountry
-        {
-            return ReadLines(stream)
+        public IEnumerable<TRecord> Read<TRecord>(Stream stream, ICSVRecordParser<TRecord> parser)
+            where TRecord : IIPRangeCountry => ReadLines(stream)
                 .Where(l => l.Length > 0 && l[0] != '#' && !char.IsWhiteSpace(l[0]))
                 .Select(l => parser.ParseRecord(l))
                 .Where(r => r != null);
-        }
 
         private IEnumerable<string> ReadLines(Stream stream)
         {

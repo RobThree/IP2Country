@@ -55,7 +55,7 @@ namespace IP2Country
             if (xBytes.Length != yBytes.Length)
                 throw new ArgumentException("IP addresses must be of the same length.");
 
-            // compare byte by byte
+                // compare byte by byte
             for (var i = 0; i < xBytes.Length; i++)
             {
                 if (xBytes[i] != yBytes[i])

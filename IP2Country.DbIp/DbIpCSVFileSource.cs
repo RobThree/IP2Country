@@ -12,10 +12,7 @@ namespace IP2Country.DbIp
         public DbIpCSVFileSource(string file)
             : base(file, new DbIpCSVRecordParser()) { }
 
-        public override IEnumerable<IIPRangeCountry> Read()
-        {
-            return ReadFile(Path, Parser);
-        }
+        public override IEnumerable<IIPRangeCountry> Read() => ReadFile(Path, Parser);
     }
 
     public class DbIpCSVRecordParser : BaseCSVRecordParser<DbIpIPRangeCountry>

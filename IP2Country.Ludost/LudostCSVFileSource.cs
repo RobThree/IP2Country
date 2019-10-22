@@ -11,10 +11,7 @@ namespace IP2Country.Ludost
         public LudostCSVFileSource(string file)
             : base(file, new LudostCSVRecordParser()) { }
 
-        public override IEnumerable<IIPRangeCountry> Read()
-        {
-            return ReadFile(Path, Parser);
-        }
+        public override IEnumerable<IIPRangeCountry> Read() => ReadFile(Path, Parser);
     }
 
     public class LudostCSVRecordParser : BaseCSVRecordParser<LudostIPRangeCountry>

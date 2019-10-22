@@ -26,7 +26,7 @@ namespace IP2Country.MaxMind
         private readonly string _zipfile;
         private readonly string[] _preferredlanguages;
         private readonly BlockOptions _blockoptions;
-        private readonly static BlockOptions DEFAULTBLOCKOPTIONS = BlockOptions.All;
+        private const BlockOptions DEFAULTBLOCKOPTIONS = BlockOptions.All;
         private readonly Regex _blocksfilter = new Regex(@"-Blocks-IPv(\d+).csv", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
 
         public MaxMindGeoLiteFileSource(string zipFile)
@@ -41,8 +41,12 @@ namespace IP2Country.MaxMind
         public MaxMindGeoLiteFileSource(string zipFile, string[] preferredLanguages, BlockOptions blockOptions)
         {
             _zipfile = zipFile ?? throw new ArgumentNullException(nameof(zipFile));
+            if (preferredLanguages == null)
+                throw new ArgumentNullException(nameof(preferredLanguages));
             if (preferredLanguages.Length == 0)
+#pragma warning disable CA1303 // Do not pass literals as localized parameters
                 throw new ArgumentException("At least one preferred language must be specified", nameof(preferredLanguages));
+#pragma warning restore CA1303 // Do not pass literals as localized parameters
             _preferredlanguages = preferredLanguages;
             _blockoptions = Enum.IsDefined(typeof(BlockOptions), blockOptions) ? blockOptions : throw new ArgumentOutOfRangeException(nameof(blockOptions));
         }
@@ -80,7 +84,7 @@ namespace IP2Country.MaxMind
             var m = _blocksfilter.Match(name);
             if (m.Success)
             {
-                switch (int.Parse(m.Groups[1].Value))
+                switch (int.Parse(m.Groups[1].Value, CultureInfo.InvariantCulture))
                 {
                     case 4:
                         return options.HasFlag(BlockOptions.IPv4);
@@ -144,7 +148,7 @@ namespace IP2Country.MaxMind
                     repcountry = int.TryParse(data[3], out var repid) ? _geolookup.TryGetValue(repid, out var rep) ? rep : null : null;
                 }
 
-#pragma warning disable CS0612
+#pragma warning disable CS0612 // Type or member is obsolete
                 switch (data.Length)
                 {
                     case 3:
@@ -153,7 +157,7 @@ namespace IP2Country.MaxMind
                             Start = ipnetwork.Begin,
                             End = ipnetwork.End,
                             Country = null,
-                            ASN = int.Parse(data[1]),
+                            ASN = int.Parse(data[1], CultureInfo.InvariantCulture),
                             Organisation = data[2]
                         };
                     case 6:
@@ -189,20 +193,14 @@ namespace IP2Country.MaxMind
                             return null;
                         break;
                 }
-#pragma warning restore CS0612
+#pragma warning restore CS0612 // Type or member is obsolete
             }
             throw new UnexpectedNumberOfFieldsException(data.Length, new[] { 3, 6, 10 });
         }
 
-        private static bool ParseBool(string value)
-        {
-            return int.TryParse(value, out var r) ? r != 0 : false;
-        }
+        private static bool ParseBool(string value) => int.TryParse(value, out var r) ? r != 0 : false;
 
-        private static double? ParseLatLon(string value)
-        {
-            return double.TryParse(value, NumberStyles.Integer | NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out var lat) ? (double?)lat : null;
-        }
+        private static double? ParseLatLon(string value) => double.TryParse(value, NumberStyles.Integer | NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out var lat) ? (double?)lat : null;
     }
 
     internal class MaxMindGeoLiteGeonameCSVRecordParser : BaseCSVRecordParser<MaxMindGeoLiteGeonameEntry>
@@ -218,7 +216,7 @@ namespace IP2Country.MaxMind
                 case 7:
                     return new MaxMindGeoLiteGeonameCountry
                     {
-                        GeoNameId = int.Parse(data[0]),
+                        GeoNameId = int.Parse(data[0], CultureInfo.InvariantCulture),
                         LocaleCode = data[1],
                         ContinentCode = data[2],
                         ContinentName = data[3],
@@ -229,7 +227,7 @@ namespace IP2Country.MaxMind
                 case 14:
                     return new MaxMindGeoLiteGeonameCity
                     {
-                        GeoNameId = int.Parse(data[0]),
+                        GeoNameId = int.Parse(data[0], CultureInfo.InvariantCulture),
                         LocaleCode = data[1],
                         ContinentCode = data[2],
                         ContinentName = data[3],

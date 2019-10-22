@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace IP2Country.DataSources.CSVFile
@@ -22,18 +23,20 @@ namespace IP2Country.DataSources.CSVFile
             Encoding = encoding;
         }
 
-        protected DateTime ParseTimeStamp(string value)
-        {
-            return EPOCH.AddSeconds(long.Parse(value));
-        }
+        protected DateTime ParseTimeStamp(string value) => EPOCH.AddSeconds(long.Parse(value, CultureInfo.InvariantCulture));
 
         protected string StripQuotes(string value)
         {
+            if (string.IsNullOrEmpty(value))
+                return string.Empty;
             return value.TrimStart('"').TrimEnd('"');
         }
 
         protected IEnumerable<string> ReadQuotedValues(string record)
         {
+            if (record == null)
+                throw new ArgumentNullException(record);
+
             var inquotes = false;
             var fieldvalue = new StringBuilder(4096);   //Let's assume 4k per line
             for (var i = 0; i < record.Length; i++)

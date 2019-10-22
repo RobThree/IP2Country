@@ -11,10 +11,7 @@ namespace IP2Country.MarkusGo
         public MarkusGoCSVFileSource(string file)
             : base(file, new MarkusGoCSVRecordParser()) { }
 
-        public override IEnumerable<IIPRangeCountry> Read()
-        {
-            return ReadFile(Path, Parser);
-        }
+        public override IEnumerable<IIPRangeCountry> Read() => ReadFile(Path, Parser);
     }
 
     public class MarkusGoCSVRecordParser : BaseCSVRecordParser<MarkusGoIPRangeCountry>

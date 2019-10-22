@@ -10,11 +10,14 @@ namespace IP2Country
 {
     public class IP2CountryResolver : IIP2CountryResolver
     {
-        private readonly Dictionary<AddressFamily, IIPRangeCountry[]> _ipinfo;
+        private readonly IDictionary<AddressFamily, IIPRangeCountry[]> _ipinfo;
         private readonly IPAddressComparer _comparer;
 
         public IP2CountryResolver(IIP2CountryDataSource ipDataSource)
             : this(new[] { ipDataSource }) { }
+
+        public IP2CountryResolver(IIP2CountryDataSource ipDataSource, IPAddressComparer ipAddressComparer)
+            : this(new[] { ipDataSource }, ipAddressComparer) { }
 
         public IP2CountryResolver(IEnumerable<IIP2CountryDataSource> ipDataSources)
             : this(ipDataSources, IPAddressComparer.Default) { }
@@ -30,6 +33,7 @@ namespace IP2Country
                 .GroupBy(i => i.Start.AddressFamily)
                 .ToDictionary(g => g.Key, g => g.OrderBy(i => i.Start, _comparer).ToArray());
         }
+
         public IIPRangeCountry Resolve(string ip)
         {
             if (string.IsNullOrEmpty(ip))
@@ -40,6 +44,9 @@ namespace IP2Country
 
         public IIPRangeCountry Resolve(IPAddress ip)
         {
+            if (ip == null)
+                throw new ArgumentNullException(nameof(ip));
+            
             if (_ipinfo.TryGetValue(ip.AddressFamily, out var data))
                 return Resolve(data, ip);
             return null;

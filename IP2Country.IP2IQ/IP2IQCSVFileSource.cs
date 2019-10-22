@@ -12,10 +12,7 @@ namespace IP2Country.IP2IQ
         public IP2IQCSVFileSource(string file)
             : base(file, new IP2IQCSVRecordParser()) { }
 
-        public override IEnumerable<IIPRangeCountry> Read()
-        {
-            return ReadFile(Path, Parser);
-        }
+        public override IEnumerable<IIPRangeCountry> Read() => ReadFile(Path, Parser);
     }
 
     public class IP2IQCSVRecordParser : BaseCSVRecordParser<IP2IQIPRangeCountry>

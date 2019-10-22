@@ -1,6 +1,7 @@
 ﻿using IP2Country.Entities;
 using IP2Country.Tests.Mocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Net;
 
 namespace IP2Country.Tests
@@ -58,7 +59,7 @@ namespace IP2Country.Tests
         public void ResolveOnEmptyDataSet_WorksCorrectly()
         {
             var target = new IP2CountryResolver(
-                new MockDataSource<IPRangeCountry>(new IPRangeCountry[0])
+                new MockDataSource<IPRangeCountry>(Array.Empty<IPRangeCountry>())
             );
 
 

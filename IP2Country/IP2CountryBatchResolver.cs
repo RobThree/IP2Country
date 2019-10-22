@@ -27,6 +27,9 @@ namespace IP2Country
 
         public IIPRangeCountry[] Resolve(IPAddress[] ips)
         {
+            if (ips == null)
+                throw new ArgumentNullException(nameof(ips));
+
             var results = new IIPRangeCountry[ips.Length];
             Parallel.ForEach(Partitioner.Create(0, ips.Length), range =>
             {

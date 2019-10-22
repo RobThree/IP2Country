@@ -7,19 +7,15 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Numerics;
-using System.Text;
 
 namespace IP2Country.IP2Location.Lite
 {
     public class IP2LocationFileSource : IP2CountryCSVFileSource<IP2LocationRangeCountry>
     {
         public IP2LocationFileSource(string file)
-            : base(file, new IP2LocationRecordParser(file.IndexOf("ipv6", StringComparison.OrdinalIgnoreCase) > 0 ? AddressFamily.InterNetworkV6 : AddressFamily.InterNetwork)) { }
+            : base(file, new IP2LocationRecordParser((file ?? throw new ArgumentNullException(nameof(file))).IndexOf("ipv6", StringComparison.OrdinalIgnoreCase) > 0 ? AddressFamily.InterNetworkV6 : AddressFamily.InterNetwork)) { }
 
-        public override IEnumerable<IIPRangeCountry> Read()
-        {
-            return ReadFile(Path, Parser);
-        }
+        public override IEnumerable<IIPRangeCountry> Read() => ReadFile(Path, Parser);
     }
 
     public class IP2LocationRecordParser : BaseCSVRecordParser<IP2LocationRangeCountry>
@@ -106,7 +102,7 @@ namespace IP2Country.IP2Location.Lite
                 default:
                     if (IgnoreErrors)
                         return null;
-                    throw new UnexpectedNumberOfFieldsException(data.Length, new[] { 4, 6, 8, 9, 10 } );
+                    throw new UnexpectedNumberOfFieldsException(data.Length, new[] { 4, 6, 8, 9, 10 });
             }
         }
 
@@ -147,19 +143,10 @@ namespace IP2Country.IP2Location.Lite
             throw new FormatException($"The value '{value}' could not be converted to an IPv6 address");
         }
 
-        private static string FixEmpty(string value)
-        {
-            return "-".Equals(value) ? null : value;
-        }
+        private static string FixEmpty(string value) => "-".Equals(value, StringComparison.OrdinalIgnoreCase) ? null : value;
 
-        private static double? ParseLatLon(string value)
-        {
-            return double.TryParse(value, NumberStyles.Integer | NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out var lat) ? (double?)lat : null;
-        }
+        private static double? ParseLatLon(string value) => double.TryParse(value, NumberStyles.Integer | NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out var lat) ? (double?)lat : null;
 
-        private static TimeSpan? ParseTZOffset(string value)
-        {
-            return TimeSpan.TryParse(value.Replace("+", ""), out var tz) ? (TimeSpan?)tz : null;
-        }
+        private static TimeSpan? ParseTZOffset(string value) => TimeSpan.TryParse(value.Replace("+", ""), out var tz) ? (TimeSpan?)tz : null;
     }
 }

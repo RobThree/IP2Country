@@ -12,10 +12,7 @@ namespace IP2Country.IpToAsn
         public IpToAsnCSVFileSource(string file)
             : base(file, new IpToAsnCSVRecordParser()) { }
 
-        public override IEnumerable<IIPRangeCountry> Read()
-        {
-            return ReadFile(Path, Parser);
-        }
+        public override IEnumerable<IIPRangeCountry> Read() => ReadFile(Path, Parser);
     }
 
     public class IpToAsnCSVRecordParser : BaseCSVRecordParser<IpToAsnIPRangeCountry>

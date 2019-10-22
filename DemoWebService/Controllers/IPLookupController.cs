@@ -19,23 +19,15 @@ namespace DemoWebService.Controllers
 
         [HttpGet]
         [Route("ip")]
-        public IIPRangeCountry Get(string q)
-        {
-            return _resolver.Resolve(q);
-        }
+        public IIPRangeCountry Get(string q) => _resolver.Resolve(q);
 
         [HttpGet]
         [Route("ips")]
         public IDictionary<string, IIPRangeCountry> Get([FromQuery(Name = "q")] string[] q) //https://github.com/aspnet/Mvc/issues/7712#issuecomment-397003420
-        {
-            return _resolver.ResolveAsDictionary(q);
-        }
+=> _resolver.ResolveAsDictionary(q);
 
         [HttpPost]
         [Route("ips")]
-        public IDictionary<string, IIPRangeCountry> Post([FromBody] string[] q)
-        {
-            return _resolver.ResolveAsDictionary(q);
-        }
+        public IDictionary<string, IIPRangeCountry> Post([FromBody] string[] q) => _resolver.ResolveAsDictionary(q);
     }
 }

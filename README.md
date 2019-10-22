@@ -11,6 +11,8 @@ Library to map IP addresses (both IPv4 and IPv6) to a country, available as [NuG
 * [MaxMind](https://www.maxmind.com) ([NuGet](https://www.nuget.org/packages/IP-2-Country.MaxMind/))
 * [WebNet77](http://software77.net/geo-ip/) ([NuGet](https://www.nuget.org/packages/IP-2-Country.WebNet77/))
 
+Also available is a caching IIP2CountryResolver in the form of a [IP2Country.Caching NuGet package](https://www.nuget.org/packages/IP2Country.Caching).
+
 This library provides an easy to implement interface (`IIP2CountryDataSource`) to provide your own data to the `IP2CountryResolver`. This library only aims for 'country level resolution'; city, ISP etc. information _can_ be returned (when provided) but is not the goal of this library. All data is stored in entities / models derived from `IIPRangeCountry` which, at the very minimum, must provide a start- and end IP address (IPv4 and/or IPv6, supported completely transparently) and country (_usually_ an [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code, but may contain other data depending on the data source).
 
 ## Usage

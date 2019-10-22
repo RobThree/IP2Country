@@ -15,12 +15,13 @@
     <Description>IP-2-Country Datasource for https://github.com/Markus-Go/ip-countryside</Description>
     <PackageIcon>markusgo.png</PackageIcon>
     <Version>1.0.4</Version>
+    <RepositoryUrl>https://github.com/RobThree/IP2Country</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\IP2Country.DataSources.CSVFile\IP2Country.DataSources.CSVFile.csproj" />
     <ProjectReference Include="..\IP2Country\IP2Country.csproj" />
-    <None Include="../icons/markusgo.png" Pack="true" PackagePath=""/>
+    <None Include="../icons/markusgo.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
 </Project>

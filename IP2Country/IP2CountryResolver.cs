@@ -11,15 +11,19 @@ namespace IP2Country
     public class IP2CountryResolver : IIP2CountryResolver
     {
         private readonly Dictionary<AddressFamily, IIPRangeCountry[]> _ipinfo;
-        private static readonly IPAddressComparer _comparer = IPAddressComparer.Default;
+        private readonly IPAddressComparer _comparer;
 
         public IP2CountryResolver(IIP2CountryDataSource ipDataSource)
             : this(new[] { ipDataSource }) { }
 
         public IP2CountryResolver(IEnumerable<IIP2CountryDataSource> ipDataSources)
+            : this(ipDataSources, IPAddressComparer.Default) { }
+
+        public IP2CountryResolver(IEnumerable<IIP2CountryDataSource> ipDataSources, IPAddressComparer ipAddressComparer)
         {
             if (ipDataSources.Any(i => i == null))
                 throw new ArgumentNullException(nameof(ipDataSources));
+            _comparer = ipAddressComparer ?? throw new ArgumentNullException(nameof(ipAddressComparer));
 
             _ipinfo = ipDataSources
                 .SelectMany(d => d.Read())
@@ -41,7 +45,7 @@ namespace IP2Country
             return null;
         }
 
-        private static IIPRangeCountry Resolve(IIPRangeCountry[] data, IPAddress ip)
+        private IIPRangeCountry Resolve(IIPRangeCountry[] data, IPAddress ip)
         {
             var lower = 0;
             var upper = data.Length - 1;

@@ -14,7 +14,7 @@
     <PackageReleaseNotes>* NetStandard 1.5 support</PackageReleaseNotes>
     <Description>IP-2-Country Datasource for all the registries (RIPE, APNIC, ARIN, LACNIC and AFRINIC)</Description>
     <PackageIcon>registries.png</PackageIcon>
-    <Version>1.0.4</Version>
+    <Version>1.0.5</Version>
     <RepositoryUrl>https://github.com/RobThree/IP2Country</RepositoryUrl>
   </PropertyGroup>
 

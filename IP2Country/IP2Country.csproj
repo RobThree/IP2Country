@@ -12,17 +12,17 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/RobThree/IP2Country</PackageProjectUrl>
     <PackageTags>IP Geolocation Country IP2Country IpToCountry</PackageTags>
-    <PackageReleaseNotes>* NetStandard 1.5 support</PackageReleaseNotes>
+    <PackageReleaseNotes>* Split IIP2CountryResolver interface into two</PackageReleaseNotes>
     <Description>Provides IP (IPv4 *and* IPv6) mappings to countries. This project provides the IP2CountryResolver and entities and other baseclasses and interfaces. It can be used with many (custom or provided) datasources like the databases from DB-IP, IP2IQ, IPToASN, Ludost, Markus-Go, Maxmind, WebNet77 and the official delegate files from the registries (RIPE, APNIC, ARIN, LACNIC and AFRINIC).</Description>
     <RepositoryUrl>https://github.com/RobThree/IP2Country</RepositoryUrl>
     <PackageIcon>icon.png</PackageIcon>
-    <Version>1.0.6</Version>
+    <Version>2.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Linq.Parallel" Version="4.3.0" />
     <PackageReference Include="System.Threading.Tasks.Parallel" Version="4.3.0" />
-    <None Include="../icons/icon.png" Pack="true" PackagePath=""/>
+    <None Include="../icons/icon.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
 </Project>

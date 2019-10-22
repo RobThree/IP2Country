@@ -14,6 +14,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\IP2Country.Caching\IP2Country.Caching.csproj" />
+    <ProjectReference Include="..\IP2Country.DataSources.CSVFile\IP2Country.DataSources.CSVFile.csproj" />
     <ProjectReference Include="..\IP2Country.DbIp\IP2Country.DbIp.csproj" />
     <ProjectReference Include="..\IP2Country.IP2IQ\IP2Country.IP2IQ.csproj" />
     <ProjectReference Include="..\IP2Country.IP2Location.Lite\IP2Country.IP2Location.Lite.csproj" />

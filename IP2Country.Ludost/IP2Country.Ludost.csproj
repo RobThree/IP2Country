@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.5</TargetFrameworks>
@@ -14,7 +14,7 @@
     <PackageReleaseNotes>* NetStandard 1.5 support</PackageReleaseNotes>
     <Description>IP-2-Country Datasource for https://ip.ludost.net/</Description>
     <PackageIcon>ludost.png</PackageIcon>
-    <Version>1.0.4</Version>
+    <Version>1.0.5</Version>
     <RepositoryUrl>https://github.com/RobThree/IP2Country</RepositoryUrl>
   </PropertyGroup>
 

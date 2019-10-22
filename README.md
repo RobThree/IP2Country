@@ -40,8 +40,11 @@ var result = (RegistryIPRangeCountry)resolver.Resolve("172.217.17.110");
 The following overloads / convenience-methods are available:
 
 ```c#
+// IIP2CountryResolver
 IIPRangeCountry Resolve(string ip);
 IIPRangeCountry Resolve(IPAddress ip);
+
+// IIP2CountryBatchResolver
 IIPRangeCountry[] Resolve(string[] ips);
 IIPRangeCountry[] Resolve(IPAddress[] ips);
 IIPRangeCountry[] Resolve(IEnumerable<string> ips);
@@ -51,6 +54,48 @@ IDictionary<IPAddress, IIPRangeCountry> ResolveAsDictionary(IPAddress[] ips);
 IDictionary<string, IIPRangeCountry> ResolveAsDictionary(IEnumerable<string> ips);
 IDictionary<IPAddress, IIPRangeCountry> ResolveAsDictionary(IEnumerable<IPAddress> ips);
 ````
+
+To resolve more than one IP address you can use the `IP2CountryBatchResolver`:
+
+```c#
+var resolver = new IP2CountryBatchResolver(new IP2CountryResolver(
+    new DbIpCSVFileSource(@"D:\files\dbip-country-lite-2019-10.csv.gz")	// Using DbIp as an example, use ANY datasource you want
+));
+
+var results = resolve.Resolve(new[] { "172.217.17.110", "172.217.17.111", "172.217.17.112" });
+```
+
+To use caching, use the `CachingIP2CountryResolver` from the `IP2Country.Caching` package:
+
+```c#
+var memcache = new MemoryCache(new MemoryCacheOptions { /* ... */ });
+var resolver = new CachingIP2CountryResolver(new IP2CountryResolver(
+    new LudostCSVFileSource(@"D:\files\country.db.gz")	// Using Ludost as an example, use ANY datasource you want
+	memcache,				// IMemoryCache instance (in this case a MemoryCache)
+	TimeSpan.FromHours(1)	// TTL for cached entries
+));
+
+var result = resolver.Resolve("172.217.17.110");
+```
+
+And, ofcourse, even the `CachingIP2CountryResolver` can be used for batch lookups:
+
+```c#
+var memcache = new MemoryCache(new MemoryCacheOptions { /* ... */ });
+var resolver = new IP2CountryBatchResolver(new CachingIP2CountryResolver(new IP2CountryResolver(
+    new WebNet77IPv4CSVFileSource(@"D:\files\IpToCountry.csv.gz")	// Using WebNet77 as an example, use ANY datasource you want
+	memcache,				// IMemoryCache instance (in this case a MemoryCache)
+	TimeSpan.FromHours(1)	// TTL for cached entries
+)));
+
+var results = resolve.Resolve(new[] { "172.217.17.110", "172.217.17.111", "172.217.17.112" });
+```
+
+## IIP2CountryBatchResolver and caching
+
+An `IP2CountryBatchResolver` class is provided to help in resolving many IP's at once. This object takes an `IIP2CountryResolver` for it's constructor parameter and is nothing more than a simple wrapper implementing the 'batch'-methods.
+
+The `IP2Country.Caching` package provides a resolver that takes an `IMemoryCache` to provide a caching mechanism and a `TimeSpan` to specify how long entries should be cached. Unless you have to resolve a lot of duplicate IP's, the caching probably doesn't add very much value.
 
 ## Datasources
 

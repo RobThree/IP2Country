@@ -19,7 +19,7 @@ In general, you'll want to use one of the above mentioned datasources. You can c
 
 ```c#
 var resolver = new IP2CountryResolver(
-    // Country level file
+    // Country level file, using MaxMind as an example
     new MaxMindGeoLiteFileSource(@"D:\files\GeoLite2-Country-CSV_20190305.zip")
 );
 ```
@@ -59,7 +59,7 @@ To resolve more than one IP address you can use the `IP2CountryBatchResolver`:
 
 ```c#
 var resolver = new IP2CountryBatchResolver(new IP2CountryResolver(
-    new DbIpCSVFileSource(@"D:\files\dbip-country-lite-2019-10.csv.gz")	// Using DbIp as an example, use ANY datasource you want
+    new DbIpCSVFileSource(@"D:\files\dbip-country-lite-2019-10.csv.gz")	// Use ANY datasource you want
 ));
 
 var results = resolve.Resolve(new[] { "172.217.17.110", "172.217.17.111", "172.217.17.112" });
@@ -70,8 +70,8 @@ To use caching, use the `CachingIP2CountryResolver` from the `IP2Country.Caching
 ```c#
 var memcache = new MemoryCache(new MemoryCacheOptions { /* ... */ });
 var resolver = new CachingIP2CountryResolver(new IP2CountryResolver(
-    new LudostCSVFileSource(@"D:\files\country.db.gz")	// Using Ludost as an example, use ANY datasource you want
-	memcache,				// IMemoryCache instance (in this case a MemoryCache)
+    new LudostCSVFileSource(@"D:\files\country.db.gz")	// Use ANY datasource you want
+	memcache,               // IMemoryCache instance (in this case a MemoryCache)
 	TimeSpan.FromHours(1)	// TTL for cached entries
 ));
 
@@ -83,8 +83,8 @@ And, ofcourse, even the `CachingIP2CountryResolver` can be used for batch lookup
 ```c#
 var memcache = new MemoryCache(new MemoryCacheOptions { /* ... */ });
 var resolver = new IP2CountryBatchResolver(new CachingIP2CountryResolver(new IP2CountryResolver(
-    new WebNet77IPv4CSVFileSource(@"D:\files\IpToCountry.csv.gz")	// Using WebNet77 as an example, use ANY datasource you want
-	memcache,				// IMemoryCache instance (in this case a MemoryCache)
+    new WebNet77IPv4CSVFileSource(@"D:\files\IpToCountry.csv.gz")	// Use ANY datasource you want
+	memcache,		// IMemoryCache instance (in this case a MemoryCache)
 	TimeSpan.FromHours(1)	// TTL for cached entries
 )));
 

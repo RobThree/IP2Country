@@ -13,13 +13,14 @@
     <PackageTags>IP Geolocation Country IP2Country IpToCountry MarkusGo Markus-Go</PackageTags>
     <PackageReleaseNotes>* NetStandard 1.5 support</PackageReleaseNotes>
     <Description>IP-2-Country Datasource for https://github.com/Markus-Go/ip-countryside</Description>
-    <PackageIconUrl>https://raw.githubusercontent.com/RobThree/IP2Country/master/icons/markusgo.png</PackageIconUrl>
+    <PackageIcon>markusgo.png</PackageIcon>
     <Version>1.0.4</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\IP2Country.DataSources.CSVFile\IP2Country.DataSources.CSVFile.csproj" />
     <ProjectReference Include="..\IP2Country\IP2Country.csproj" />
+    <None Include="../icons/markusgo.png" Pack="true" PackagePath=""/>
   </ItemGroup>
 
 </Project>

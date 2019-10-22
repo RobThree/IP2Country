@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.5</TargetFrameworks>
@@ -15,13 +15,14 @@
     <PackageReleaseNotes>* NetStandard 1.5 support</PackageReleaseNotes>
     <Description>Provides IP (IPv4 *and* IPv6) mappings to countries. This project provides the IP2CountryResolver and entities and other baseclasses and interfaces. It can be used with many (custom or provided) datasources like the databases from DB-IP, IP2IQ, IPToASN, Ludost, Markus-Go, Maxmind, WebNet77 and the official delegate files from the registries (RIPE, APNIC, ARIN, LACNIC and AFRINIC).</Description>
     <RepositoryUrl>https://github.com/RobThree/IP2Country</RepositoryUrl>
-    <PackageIconUrl>https://raw.githubusercontent.com/RobThree/IP2Country/master/icons/icon.png</PackageIconUrl>
+    <PackageIcon>icon.png</PackageIcon>
     <Version>1.0.6</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Linq.Parallel" Version="4.3.0" />
     <PackageReference Include="System.Threading.Tasks.Parallel" Version="4.3.0" />
+    <None Include="../icons/icon.png" Pack="true" PackagePath=""/>
   </ItemGroup>
 
 </Project>

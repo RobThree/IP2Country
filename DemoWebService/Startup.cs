@@ -1,8 +1,11 @@
 ﻿using AspNetCoreRateLimit;
 using DemoWebService.Helpers;
+using IP2Country;
+using IP2Country.Caching;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -49,7 +52,16 @@ namespace DemoWebService
             // Configure resolver
             services.Configure<AutoReloadingResolverConfig>(Configuration.GetSection("Resolver"));
             services.AddSingleton<IAutoReloadingResolver>(s =>
-                new AutoReloadingResolver(s.GetService<IOptions<AutoReloadingResolverConfig>>())
+                new AutoReloadingResolver((ds) =>
+                    new IP2CountryBatchResolver(
+                        new CachingIP2CountryResolver(
+                            new IP2CountryResolver(ds),
+                            s.GetRequiredService<IMemoryCache>(),
+                            TimeSpan.FromMinutes(10)
+                        )
+                    ),
+                    s.GetRequiredService<IOptions<AutoReloadingResolverConfig>>()
+                )
             );
 
             // IP Rate limiting

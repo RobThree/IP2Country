@@ -13,7 +13,7 @@
     <PackageTags>IP Geolocation Country IP2Country IpToCountry MaxMind</PackageTags>
     <PackageReleaseNotes>* Support for new GeoLITE2 format</PackageReleaseNotes>
     <Description>IP-2-Country Datasource for https://dev.maxmind.com/geoip/geoip2/geolite2/</Description>
-    <PackageIconUrl>https://raw.githubusercontent.com/RobThree/IP2Country/master/icons/maxmind.png</PackageIconUrl>
+    <PackageIcon>maxmind.png</PackageIcon>
     <Version>1.1.1</Version>
   </PropertyGroup>
 
@@ -24,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\IP2Country.DataSources.CSVFile\IP2Country.DataSources.CSVFile.csproj" />
     <ProjectReference Include="..\IP2Country\IP2Country.csproj" />
+    <None Include="../icons/maxmind.png" Pack="true" PackagePath=""/>
   </ItemGroup>
 
 </Project>

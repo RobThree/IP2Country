@@ -23,8 +23,10 @@ namespace DemoApp
             );
 
             // Initialize resolver with all data files
-            var resolver = new IP2CountryResolver(
-                Directory.GetFiles(temppath, "*.dat").Select(f => new RegistryCSVFileSource(f))
+            var resolver = new IP2CountryBatchResolver(
+                new IP2CountryResolver(
+                    Directory.GetFiles(temppath, "*.dat").Select(f => new RegistryCSVFileSource(f))
+                )
             );
 
             // A bunch of semi-"random" IPv4/IPv6 IP's from random countries for demonstration purposes...

@@ -15,7 +15,7 @@ namespace IP2Country
         /// <summary>
         /// The default singleton instance of the comparer.
         /// </summary>
-        public static new IPAddressComparer Default { get { return _Default.Value; } }
+        public static new IPAddressComparer Default => _Default.Value;
 
         /// <summary>
         /// When overridden in a derived class, performs a comparison of two objects of 
@@ -49,14 +49,23 @@ namespace IP2Country
             if (x.AddressFamily != y.AddressFamily)
                 throw new ArgumentException("IP addresses must be of the same address family.");
 
-            byte[] xBytes = x.GetAddressBytes();
-            byte[] yBytes = y.GetAddressBytes();
+            var xBytes = x.GetAddressBytes();
+            var yBytes = y.GetAddressBytes();
 
             if (xBytes.Length != yBytes.Length)
                 throw new ArgumentException("IP addresses must be of the same length.");
 
+            //// compare byte by byte
+            //int i = 0;
+            //while (i < xBytes.Length && xBytes[i] == yBytes[i])
+            //    i++;
+            //// Past last byte? Then the arrays are equal.
+            //if (i >= xBytes.Length)
+            //    return 0;
+            //return xBytes[i] < yBytes[i] ? -1 : 1;
+
             // compare byte by byte
-            for (int i = 0; i < xBytes.Length; i++)
+            for (var i = 0; i < xBytes.Length; i++)
             {
                 if (xBytes[i] != yBytes[i])
                     return xBytes[i] < yBytes[i] ? -1 : 1;

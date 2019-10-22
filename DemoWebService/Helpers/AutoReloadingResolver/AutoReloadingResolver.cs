@@ -1,4 +1,5 @@
 ﻿using IP2Country;
+using IP2Country.Datasources;
 using IP2Country.Entities;
 using IP2Country.Registries;
 using Microsoft.Extensions.Options;
@@ -15,13 +16,15 @@ namespace DemoWebService.Helpers
 {
     public class AutoReloadingResolver : IAutoReloadingResolver, IDisposable
     {
-        private IIP2CountryResolver _resolver;
+        private IIP2CountryBatchResolver _resolver;
+        private readonly Func<IEnumerable<IIP2CountryDataSource>, IIP2CountryBatchResolver> _resolverfactory;
         private readonly AutoReloadingResolverConfig _config;
         private readonly Timer _reloadtimer;
         private bool _reloading = false;
 
-        public AutoReloadingResolver(IOptions<AutoReloadingResolverConfig> config)
+        public AutoReloadingResolver(Func<IEnumerable<IIP2CountryDataSource>, IIP2CountryBatchResolver> resolverFactory, IOptions<AutoReloadingResolverConfig> config)
         {
+            _resolverfactory = resolverFactory ?? throw new ArgumentNullException(nameof(resolverFactory));
             _config = config?.Value ?? throw new ArgumentNullException(nameof(config));
             _reloadtimer = new Timer(Reload);
         }
@@ -39,12 +42,14 @@ namespace DemoWebService.Helpers
                 DownloadLatest(_config.CacheDirectory, _config.RefreshInterval.Add(TimeSpan.FromSeconds(-1)));
 
                 // Make a new resolver
-                var resolver = new IP2CountryResolver(
+                var resolver = _resolverfactory(
                     Directory.GetFiles(_config.CacheDirectory, "*.dat").Select(f => new RegistryCSVFileSource(f))
                 );
 
                 // Swap out current resolver with new resolver
-                _resolver = resolver;
+#pragma warning disable CA1303 // Do not pass literals as localized parameters
+                _resolver = resolver ?? throw new ReloadException("Unable to create resolver");
+#pragma warning restore CA1303 // Do not pass literals as localized parameters
 
                 _reloading = false;
                 Trace.WriteLine("Reload done...");
@@ -89,7 +94,7 @@ namespace DemoWebService.Helpers
 
         public IDictionary<IPAddress, IIPRangeCountry> ResolveAsDictionary(IPAddress[] ips) => GetResolver().ResolveAsDictionary(ips);
 
-        private IIP2CountryResolver GetResolver() => _resolver ?? throw GetException();
+        private IIP2CountryBatchResolver GetResolver() => _resolver ?? throw GetException();
 
         private Exception GetException()
         {

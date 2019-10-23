@@ -2,6 +2,7 @@
 using IP2Country.Entities;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -39,7 +40,7 @@ namespace IP2Country.Registries
                     End = ParseEndIP(start, int.Parse(data[4], CultureInfo.InvariantCulture)),
                     Date = ParseDate(data[5]),
                     Status = data[6],
-                    Extensions = data.Length > 7 ? data.Skip(7).ToArray() : _emptyextensions
+                    Extensions = new ReadOnlyCollection<string>(data.Length > 7 ? data.Skip(7).ToArray() : _emptyextensions)
                 };
             }
             return null;

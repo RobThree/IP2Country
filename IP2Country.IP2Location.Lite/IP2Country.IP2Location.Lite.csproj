@@ -14,7 +14,7 @@
     <PackageReleaseNotes>* NetStandard 1.5 support</PackageReleaseNotes>
     <Description>IP-2-Country Datasource for https://lite.ip2location.com/</Description>
     <PackageIcon>ip2location.png</PackageIcon>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <RepositoryUrl>https://github.com/RobThree/IP2Country</RepositoryUrl>
   </PropertyGroup>
 

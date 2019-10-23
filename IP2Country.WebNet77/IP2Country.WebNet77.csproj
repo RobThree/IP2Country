@@ -14,7 +14,7 @@
     <PackageReleaseNotes>* NetStandard 1.5 support</PackageReleaseNotes>
     <Description>IP-2-Country Datasource for http://software77.net/geo-ip</Description>
     <PackageIcon>webnet77.png</PackageIcon>
-    <Version>1.0.6</Version>
+    <Version>1.0.7</Version>
     <RepositoryUrl>https://github.com/RobThree/IP2Country</RepositoryUrl>
   </PropertyGroup>
 

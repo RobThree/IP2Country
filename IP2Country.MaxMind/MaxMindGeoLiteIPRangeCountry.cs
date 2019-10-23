@@ -8,9 +8,9 @@ namespace IP2Country.MaxMind
         public MaxMindGeoLiteGeonameEntry Location { get; set; }
         public MaxMindGeoLiteGeonameEntry RegisteredLocation { get; set; }
         public MaxMindGeoLiteGeonameEntry RepresentedLocation { get; set; }
-        [Obsolete]
+        [Obsolete("Deprecated by MaxMind")]
         public bool IsAnonymousProxy { get; set; }
-        [Obsolete]
+        [Obsolete("Deprecated by MaxMind")]
         public bool IsSatelliteProvider { get; set; }
     }
 

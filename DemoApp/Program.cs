@@ -9,18 +9,18 @@ namespace DemoApp
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static async Task Main()
         {
-            // Download all registry delegation latest files and store/"cache" them in a temp directory
+            // Download all registry delegation latest files and store (cache) them in a temp directory
             using (var downloader = new CachingWebClient())
             {
                 var temppath = Directory.CreateDirectory(Path.Combine(Path.GetTempPath(), "delegationcache")).FullName;
                 await Task.WhenAll(
-                    downloader.DownloadAsync("http://ftp.ripe.net/ripe/stats/delegated-ripencc-extended-latest", Path.Combine(temppath, "ripe.dat")),
-                    downloader.DownloadAsync("http://ftp.apnic.net/pub/stats/apnic/delegated-apnic-extended-latest", Path.Combine(temppath, "apnic.dat")),
-                    downloader.DownloadAsync("http://ftp.arin.net/pub/stats/arin/delegated-arin-extended-latest", Path.Combine(temppath, "arin.dat")),
-                    downloader.DownloadAsync("http://ftp.lacnic.net/pub/stats/lacnic/delegated-lacnic-extended-latest", Path.Combine(temppath, "lacnic.dat")),
-                    downloader.DownloadAsync("http://ftp.afrinic.net/pub/stats/afrinic/delegated-afrinic-extended-latest", Path.Combine(temppath, "afrinic.dat"))
+                    downloader.DownloadAsync(new Uri("http://ftp.ripe.net/ripe/stats/delegated-ripencc-extended-latest"), Path.Combine(temppath, "ripe.dat")),
+                    downloader.DownloadAsync(new Uri("http://ftp.apnic.net/pub/stats/apnic/delegated-apnic-extended-latest"), Path.Combine(temppath, "apnic.dat")),
+                    downloader.DownloadAsync(new Uri("http://ftp.arin.net/pub/stats/arin/delegated-arin-extended-latest"), Path.Combine(temppath, "arin.dat")),
+                    downloader.DownloadAsync(new Uri("http://ftp.lacnic.net/pub/stats/lacnic/delegated-lacnic-extended-latest"), Path.Combine(temppath, "lacnic.dat")),
+                    downloader.DownloadAsync(new Uri("http://ftp.afrinic.net/pub/stats/afrinic/delegated-afrinic-extended-latest"), Path.Combine(temppath, "afrinic.dat"))
                 ).ConfigureAwait(false);
 
                 // Initialize resolver with all data files

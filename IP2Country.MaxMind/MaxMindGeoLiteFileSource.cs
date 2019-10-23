@@ -148,7 +148,7 @@ namespace IP2Country.MaxMind
                     repcountry = int.TryParse(data[3], out var repid) ? _geolookup.TryGetValue(repid, out var rep) ? rep : null : null;
                 }
 
-#pragma warning disable CS0612 // Type or member is obsolete
+#pragma warning disable CS0618 // Type or member is obsolete
                 switch (data.Length)
                 {
                     case 3:
@@ -193,7 +193,7 @@ namespace IP2Country.MaxMind
                             return null;
                         break;
                 }
-#pragma warning restore CS0612 // Type or member is obsolete
+#pragma warning restore CS0618 // Type or member is obsolete
             }
             throw new UnexpectedNumberOfFieldsException(data.Length, new[] { 3, 6, 10 });
         }

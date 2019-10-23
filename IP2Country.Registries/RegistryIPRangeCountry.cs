@@ -1,5 +1,6 @@
 ﻿using IP2Country.Entities;
 using System;
+using System.Collections.ObjectModel;
 
 namespace IP2Country.Registries
 {
@@ -8,6 +9,6 @@ namespace IP2Country.Registries
         public string Registry { get; set; }
         public DateTime? Date { get; set; }
         public string Status { get; set; }
-        public string[] Extensions { get; set; }
+        public ReadOnlyCollection<string> Extensions { get; internal set; }
     }
 }

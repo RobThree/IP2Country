@@ -16,7 +16,15 @@
     <PackageIcon>ip2iq.png</PackageIcon>
     <Version>1.0.6</Version>
     <RepositoryUrl>https://github.com/RobThree/IP2Country</RepositoryUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <ProjectReference Include="..\IP2Country.DataSources.CSVFile\IP2Country.DataSources.CSVFile.csproj" />

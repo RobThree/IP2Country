@@ -4,6 +4,6 @@ namespace IP2Country.MarkusGo
 {
     public class MarkusGoIPRangeCountry : IPRangeCountry
     {
-        
+
     }
 }

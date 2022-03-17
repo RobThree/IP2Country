@@ -32,17 +32,23 @@ namespace IP2Country.DataSources.CSVFile
             using (var fs = File.OpenRead(path))
             {
                 fs.Read(buffer, offset, buffer.Length);
-                for (int i = 0; i < buffer.Length; i++)
+                for (var i = 0; i < buffer.Length; i++)
+                {
                     if (buffer[i] != magicnumber[i])
+                    {
                         return false;
+                    }
+                }
             }
             return true;
         }
 
-        protected static bool IsZIP(string path) => CheckMagicNumber(path, 0, new byte[] { 0x50, 0x4B, 0x03, 0x04 });
+        protected static bool IsZIP(string path)
+            => CheckMagicNumber(path, 0, new byte[] { 0x50, 0x4B, 0x03, 0x04 });
 
 
-        protected static bool IsGZ(string path) => CheckMagicNumber(path, 0, new byte[] { 0x1F, 0x8B });
+        protected static bool IsGZ(string path)
+            => CheckMagicNumber(path, 0, new byte[] { 0x1F, 0x8B });
 
         protected IEnumerable<TRecord> ReadFile<TRecord>(string path, ICSVRecordParser<TRecord> parser)
             where TRecord : IIPRangeCountry
@@ -52,27 +58,40 @@ namespace IP2Country.DataSources.CSVFile
                 using (var zipArchive = new ZipArchive(File.OpenRead(path), ZipArchiveMode.Read))
                 {
                     foreach (var entry in zipArchive.Entries)
+                    {
                         foreach (var r in Read(entry.Open(), parser))
+                        {
                             yield return r;
+                        }
+                    }
                 }
             }
             else if (IsGZ(path))
             {
                 using (var s = File.OpenRead(path))
                 using (var g = new GZipStream(s, CompressionMode.Decompress))
+                {
                     foreach (var r in Read(g, parser))
+                    {
                         yield return r;
+                    }
+                }
             }
             else
             {
                 using (var s = File.OpenRead(path))
+                {
                     foreach (var r in Read(s, parser))
+                    {
                         yield return r;
+                    }
+                }
             }
         }
 
         public IEnumerable<TRecord> Read<TRecord>(Stream stream, ICSVRecordParser<TRecord> parser)
-            where TRecord : IIPRangeCountry => ReadLines(stream)
+            where TRecord : IIPRangeCountry
+            => ReadLines(stream)
                 .Where(l => l.Length > 0 && l[0] != '#' && !char.IsWhiteSpace(l[0]))
                 .Select(l => parser.ParseRecord(l))
                 .Where(r => r != null);
@@ -83,7 +102,9 @@ namespace IP2Country.DataSources.CSVFile
             {
                 string line;
                 while ((line = r.ReadLine()) != null)
+                {
                     yield return line;
+                }
             }
         }
 

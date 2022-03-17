@@ -20,13 +20,18 @@ namespace IP2Country.IP2IQ
         public override IP2IQIPRangeCountry ParseRecord(string record)
         {
             if (record == null)
+            {
                 throw new ArgumentNullException(nameof(record));
+            }
 
             var data = record.Split(new[] { ',' }, 5).Select(v => StripQuotes(v.Trim())).ToArray();
             if (data.Length != 5)
             {
                 if (IgnoreErrors)
+                {
                     return null;
+                }
+
                 throw new UnexpectedNumberOfFieldsException(data.Length, 5);
             }
 

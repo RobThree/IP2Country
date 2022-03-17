@@ -19,13 +19,18 @@ namespace IP2Country.MarkusGo
         public override MarkusGoIPRangeCountry ParseRecord(string record)
         {
             if (record == null)
+            {
                 throw new ArgumentNullException(nameof(record));
+            }
 
             var data = record.Split(' ');
             if (data.Length != 3)
             {
                 if (IgnoreErrors)
+                {
                     return null;
+                }
+
                 throw new UnexpectedNumberOfFieldsException(data.Length, 3);
             }
 

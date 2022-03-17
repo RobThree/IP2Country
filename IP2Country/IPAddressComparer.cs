@@ -10,12 +10,12 @@ namespace IP2Country
     public class IPAddressComparer : Comparer<IPAddress>
     {
 
-        private static readonly Lazy<IPAddressComparer> _Default = new Lazy<IPAddressComparer>();
+        private static readonly Lazy<IPAddressComparer> _default = new();
 
         /// <summary>
         /// The default singleton instance of the comparer.
         /// </summary>
-        public static new IPAddressComparer Default => _Default.Value;
+        public static new IPAddressComparer Default => _default.Value;
 
         /// <summary>
         /// When overridden in a derived class, performs a comparison of two objects of 
@@ -38,28 +38,40 @@ namespace IP2Country
         {
 
             if (ReferenceEquals(x, y))
+            {
                 return 0;   // same instance
+            }
 
             if (x is null)
+            {
                 return -1;  // nulls are always less than non-null
+            }
 
             if (y is null)
+            {
                 return 1;   // non-null is always greater than null
+            }
 
             if (x.AddressFamily != y.AddressFamily)
+            {
                 throw new ArgumentException("IP addresses must be of the same address family.");
+            }
 
             var xBytes = x.GetAddressBytes();
             var yBytes = y.GetAddressBytes();
 
             if (xBytes.Length != yBytes.Length)
+            {
                 throw new ArgumentException("IP addresses must be of the same length.");
+            }
 
-                // compare byte by byte
+            // compare byte by byte
             for (var i = 0; i < xBytes.Length; i++)
             {
                 if (xBytes[i] != yBytes[i])
+                {
                     return xBytes[i] < yBytes[i] ? -1 : 1;
+                }
             }
             return 0;   // equal
         }

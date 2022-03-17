@@ -35,7 +35,7 @@ namespace DemoWebService
                 .AddControllers()
                 .AddJsonOptions(o =>
                 {
-                    o.JsonSerializerOptions.IgnoreNullValues = true;
+                    o.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
                     o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                     o.JsonSerializerOptions.Converters.Add(new IPAddressConverter());
                 });
@@ -75,14 +75,17 @@ namespace DemoWebService
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-#pragma warning disable CA1822 // Mark members as static
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-#pragma warning restore CA1822 // Mark members as static
         {
             if (app == null)
+            {
                 throw new ArgumentNullException(nameof(app));
+            }
+
             if (env == null)
+            {
                 throw new ArgumentNullException(nameof(env));
+            }
 
             if (env.IsDevelopment())
             {

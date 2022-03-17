@@ -7,7 +7,7 @@ namespace IP2Country.DataSources.CSVFile
 {
     public abstract class BaseCSVRecordParser<T> : ICSVRecordParser<T>
     {
-        private static readonly DateTime EPOCH = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        private static readonly DateTime _epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
         public Encoding Encoding { get; protected set; }
         public bool IgnoreErrors { get; protected set; }
 
@@ -23,19 +23,24 @@ namespace IP2Country.DataSources.CSVFile
             Encoding = encoding;
         }
 
-        protected DateTime ParseTimeStamp(string value) => EPOCH.AddSeconds(long.Parse(value, CultureInfo.InvariantCulture));
+        protected DateTime ParseTimeStamp(string value) => _epoch.AddSeconds(long.Parse(value, CultureInfo.InvariantCulture));
 
         protected string StripQuotes(string value)
         {
             if (string.IsNullOrEmpty(value))
+            {
                 return string.Empty;
+            }
+
             return value.TrimStart('"').TrimEnd('"');
         }
 
         protected IEnumerable<string> ReadQuotedValues(string record)
         {
             if (record == null)
+            {
                 throw new ArgumentNullException(record);
+            }
 
             var inquotes = false;
             var fieldvalue = new StringBuilder(4096);   //Let's assume 4k per line

@@ -1,33 +1,35 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Company>Devcorner.nl</Company>
-    <Authors>RobIII</Authors>
-    <Product>IP-2-Country.Caching</Product>
-    <Copyright>(C) 2018 - 2019 Devcorner.nl</Copyright>
-    <PackageProjectUrl>https://github.com/RobThree/IP2Country</PackageProjectUrl>
-    <PackageTags>IP Geolocation Country IP2Country IpToCountry Caching</PackageTags>
-    <PackageReleaseNotes>* Initial release</PackageReleaseNotes>
-    <Description>Provides a caching resolver for IP-2-Country</Description>
-    <PackageIcon>icon.png</PackageIcon>
-    <RepositoryUrl>https://github.com/RobThree/IP2Country</RepositoryUrl>
-    <Version>1.0.0</Version>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<Company>Devcorner.nl</Company>
+		<Authors>RobIII</Authors>
+		<Product>IP-2-Country.Caching</Product>
+		<Copyright>(C) 2018 - 2019 Devcorner.nl</Copyright>
+		<PackageProjectUrl>https://github.com/RobThree/IP2Country</PackageProjectUrl>
+		<PackageTags>IP Geolocation Country IP2Country IpToCountry Caching</PackageTags>
+		<PackageReleaseNotes>* Initial release</PackageReleaseNotes>
+		<Description>Provides a caching resolver for IP-2-Country</Description>
+		<PackageIcon>icon.png</PackageIcon>
+		<RepositoryUrl>https://github.com/RobThree/IP2Country</RepositoryUrl>
+		<Version>1.0.0</Version>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.6">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="3.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="6.0.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\IP2Country\IP2Country.csproj" />
-    <None Include="../icons/icon.png" Pack="true" PackagePath="" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\IP2Country\IP2Country.csproj" />
+		<None Include="../icons/icon.png" Pack="true" PackagePath="" />
+	</ItemGroup>
 
 </Project>

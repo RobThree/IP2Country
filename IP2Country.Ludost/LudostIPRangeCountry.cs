@@ -4,6 +4,6 @@ namespace IP2Country.Ludost
 {
     public class LudostIPRangeCountry : IPRangeCountry
     {
-        
+
     }
 }

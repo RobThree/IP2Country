@@ -19,13 +19,18 @@ namespace IP2Country.WebNet77
         public override WebNet77IPv6IPRangeCountry ParseRecord(string record)
         {
             if (record == null)
+            {
                 throw new ArgumentNullException(nameof(record));
+            }
 
             var data = record.Split(',');
             if (data.Length != 4)
             {
                 if (IgnoreErrors)
+                {
                     return null;
+                }
+
                 throw new UnexpectedNumberOfFieldsException(data.Length, 4);
             }
 

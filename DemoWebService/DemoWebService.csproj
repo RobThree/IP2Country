@@ -1,45 +1,47 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>obj\Debug\netcoreapp3.0\DemoWebService.xml</DocumentationFile>
-    <NoWarn>$(NoWarn);1591</NoWarn>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DocumentationFile>obj\Debug\netcoreapp3.0\DemoWebService.xml</DocumentationFile>
+		<NoWarn>$(NoWarn);1591</NoWarn>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>obj\Release\netcoreapp3.0\DemoWebService.xml</DocumentationFile>
-    <NoWarn>$(NoWarn);1591</NoWarn>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DocumentationFile>obj\Release\netcoreapp3.0\DemoWebService.xml</DocumentationFile>
+		<NoWarn>$(NoWarn);1591</NoWarn>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="wwwroot\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AspNetCoreRateLimit" Version="3.0.5" />
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.6">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc4" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="AspNetCoreRateLimit" Version="4.0.2" />
+		<PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\IP2Country.Caching\IP2Country.Caching.csproj" />
-    <ProjectReference Include="..\IP2Country.DataSources.CSVFile\IP2Country.DataSources.CSVFile.csproj" />
-    <ProjectReference Include="..\IP2Country.DbIp\IP2Country.DbIp.csproj" />
-    <ProjectReference Include="..\IP2Country.IP2IQ\IP2Country.IP2IQ.csproj" />
-    <ProjectReference Include="..\IP2Country.IP2Location.Lite\IP2Country.IP2Location.Lite.csproj" />
-    <ProjectReference Include="..\IP2Country.IpToAsn\IP2Country.IpToAsn.csproj" />
-    <ProjectReference Include="..\IP2Country.Ludost\IP2Country.Ludost.csproj" />
-    <ProjectReference Include="..\IP2Country.MarkusGo\IP2Country.MarkusGo.csproj" />
-    <ProjectReference Include="..\IP2Country.MaxMind\IP2Country.MaxMind.csproj" />
-    <ProjectReference Include="..\IP2Country.Registries\IP2Country.Registries.csproj" />
-    <ProjectReference Include="..\IP2Country.WebNet77\IP2Country.WebNet77.csproj" />
-    <ProjectReference Include="..\IP2Country\IP2Country.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\IP2Country.Caching\IP2Country.Caching.csproj" />
+		<ProjectReference Include="..\IP2Country.DataSources.CSVFile\IP2Country.DataSources.CSVFile.csproj" />
+		<ProjectReference Include="..\IP2Country.DbIp\IP2Country.DbIp.csproj" />
+		<ProjectReference Include="..\IP2Country.IP2IQ\IP2Country.IP2IQ.csproj" />
+		<ProjectReference Include="..\IP2Country.IP2Location.Lite\IP2Country.IP2Location.Lite.csproj" />
+		<ProjectReference Include="..\IP2Country.IpToAsn\IP2Country.IpToAsn.csproj" />
+		<ProjectReference Include="..\IP2Country.Ludost\IP2Country.Ludost.csproj" />
+		<ProjectReference Include="..\IP2Country.MarkusGo\IP2Country.MarkusGo.csproj" />
+		<ProjectReference Include="..\IP2Country.MaxMind\IP2Country.MaxMind.csproj" />
+		<ProjectReference Include="..\IP2Country.Registries\IP2Country.Registries.csproj" />
+		<ProjectReference Include="..\IP2Country.WebNet77\IP2Country.WebNet77.csproj" />
+		<ProjectReference Include="..\IP2Country\IP2Country.csproj" />
+	</ItemGroup>
 
 </Project>

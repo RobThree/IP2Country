@@ -29,7 +29,8 @@ namespace DemoWebService.Helpers
             _reloadtimer = new Timer(Reload);
         }
 
-        public void Initialize() => _reloadtimer.Change(TimeSpan.Zero, _config.RefreshInterval);
+        public void Initialize()
+            => _reloadtimer.Change(TimeSpan.Zero, _config.RefreshInterval);
 
         private void Reload(object state)
         {
@@ -47,9 +48,7 @@ namespace DemoWebService.Helpers
                 );
 
                 // Swap out current resolver with new resolver
-#pragma warning disable CA1303 // Do not pass literals as localized parameters
                 _resolver = resolver ?? throw new ReloadException("Unable to create resolver");
-#pragma warning restore CA1303 // Do not pass literals as localized parameters
 
                 _reloading = false;
                 Trace.WriteLine("Reload done...");
@@ -59,50 +58,60 @@ namespace DemoWebService.Helpers
         private static void DownloadLatest(string path, TimeSpan ttl)
         {
             // Download all registry delegation latest files and store/"cache" them in a temp directory
-            using (var d = new CachingWebClient())
+            using var d = new CachingWebClient();
+            Task.Run(async () =>
             {
-                Task.Run(async () =>
-                {
-                    await Task.WhenAll(
-                        d.DownloadAsync(new Uri("http://ftp.ripe.net/ripe/stats/delegated-ripencc-extended-latest"), Path.Combine(path, "ripe.dat"), ttl),
-                        d.DownloadAsync(new Uri("http://ftp.apnic.net/pub/stats/apnic/delegated-apnic-extended-latest"), Path.Combine(path, "apnic.dat"), ttl),
-                        d.DownloadAsync(new Uri("http://ftp.arin.net/pub/stats/arin/delegated-arin-extended-latest"), Path.Combine(path, "arin.dat"), ttl),
-                        d.DownloadAsync(new Uri("http://ftp.lacnic.net/pub/stats/lacnic/delegated-lacnic-extended-latest"), Path.Combine(path, "lacnic.dat"), ttl),
-                        d.DownloadAsync(new Uri("http://ftp.afrinic.net/pub/stats/afrinic/delegated-afrinic-extended-latest"), Path.Combine(path, "afrinic.dat"), ttl)
-                    ).ConfigureAwait(false);
-                }).Wait();
-            }
+                await Task.WhenAll(
+                    d.DownloadAsync(new Uri("http://ftp.ripe.net/ripe/stats/delegated-ripencc-extended-latest"), Path.Combine(path, "ripe.dat"), ttl),
+                    d.DownloadAsync(new Uri("http://ftp.apnic.net/pub/stats/apnic/delegated-apnic-extended-latest"), Path.Combine(path, "apnic.dat"), ttl),
+                    d.DownloadAsync(new Uri("http://ftp.arin.net/pub/stats/arin/delegated-arin-extended-latest"), Path.Combine(path, "arin.dat"), ttl),
+                    d.DownloadAsync(new Uri("http://ftp.lacnic.net/pub/stats/lacnic/delegated-lacnic-extended-latest"), Path.Combine(path, "lacnic.dat"), ttl),
+                    d.DownloadAsync(new Uri("http://ftp.afrinic.net/pub/stats/afrinic/delegated-afrinic-extended-latest"), Path.Combine(path, "afrinic.dat"), ttl)
+                ).ConfigureAwait(false);
+            }).Wait();
         }
 
-        public IIPRangeCountry Resolve(string ip) => GetResolver().Resolve(ip);
+        public IIPRangeCountry? Resolve(string ip)
+            => GetResolver().Resolve(ip);
 
-        public IIPRangeCountry Resolve(IPAddress ip) => GetResolver().Resolve(ip);
+        public IIPRangeCountry? Resolve(IPAddress ip)
+            => GetResolver().Resolve(ip);
 
-        public IIPRangeCountry[] Resolve(string[] ips) => GetResolver().Resolve(ips);
+        public IIPRangeCountry[] Resolve(string[] ips)
+            => GetResolver().Resolve(ips);
 
-        public IIPRangeCountry[] Resolve(IPAddress[] ips) => GetResolver().Resolve(ips);
+        public IIPRangeCountry[] Resolve(IPAddress[] ips)
+            => GetResolver().Resolve(ips);
 
-        public IIPRangeCountry[] Resolve(IEnumerable<string> ips) => GetResolver().Resolve(ips);
+        public IIPRangeCountry[] Resolve(IEnumerable<string> ips)
+            => GetResolver().Resolve(ips);
 
-        public IIPRangeCountry[] Resolve(IEnumerable<IPAddress> ips) => GetResolver().Resolve(ips);
+        public IIPRangeCountry[] Resolve(IEnumerable<IPAddress> ips)
+            => GetResolver().Resolve(ips);
 
-        public IDictionary<string, IIPRangeCountry> ResolveAsDictionary(IEnumerable<string> ips) => GetResolver().ResolveAsDictionary(ips);
+        public IDictionary<string, IIPRangeCountry> ResolveAsDictionary(IEnumerable<string> ips)
+            => GetResolver().ResolveAsDictionary(ips);
 
-        public IDictionary<IPAddress, IIPRangeCountry> ResolveAsDictionary(IEnumerable<IPAddress> ips) => GetResolver().ResolveAsDictionary(ips);
+        public IDictionary<IPAddress, IIPRangeCountry> ResolveAsDictionary(IEnumerable<IPAddress> ips)
+            => GetResolver().ResolveAsDictionary(ips);
 
-        public IDictionary<string, IIPRangeCountry> ResolveAsDictionary(string[] ips) => GetResolver().ResolveAsDictionary(ips);
+        public IDictionary<string, IIPRangeCountry> ResolveAsDictionary(string[] ips)
+            => GetResolver().ResolveAsDictionary(ips);
 
-        public IDictionary<IPAddress, IIPRangeCountry> ResolveAsDictionary(IPAddress[] ips) => GetResolver().ResolveAsDictionary(ips);
+        public IDictionary<IPAddress, IIPRangeCountry> ResolveAsDictionary(IPAddress[] ips)
+            => GetResolver().ResolveAsDictionary(ips);
 
-        private IIP2CountryBatchResolver GetResolver() => _resolver ?? throw GetException();
+        private IIP2CountryBatchResolver GetResolver()
+            => _resolver ?? throw GetException();
 
         private Exception GetException()
         {
             if (_reloading)
-#pragma warning disable CA1303 // Do not pass literals as localized parameters
+            {
                 return new WarmingUpException("Resolver currently not available; please wait");
+            }
+
             return new NullReferenceException("Resolver is not set");
-#pragma warning restore CA1303 // Do not pass literals as localized parameters
         }
 
         #region IDisposable Support

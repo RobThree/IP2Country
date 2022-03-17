@@ -1,32 +1,34 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>netstandard1.5</TargetFrameworks>
-    <Authors>RobIII</Authors>
-    <Company>Devcorner.nl</Company>
-    <PackageId>IP-2-Country</PackageId>
-    <NoPackageAnalysis>true</NoPackageAnalysis>
-    <Product>IP-2-Country</Product>
-    <Copyright>(C) 2018 - 2019 Devcorner.nl</Copyright>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/RobThree/IP2Country</PackageProjectUrl>
-    <PackageTags>IP Geolocation Country IP2Country IpToCountry</PackageTags>
-    <PackageReleaseNotes>* Split IIP2CountryResolver interface into two</PackageReleaseNotes>
-    <Description>Provides IP (IPv4 *and* IPv6) mappings to countries. This project provides the IP2CountryResolver and entities and other baseclasses and interfaces. It can be used with many (custom or provided) datasources like the databases from DB-IP, IP2IQ, IPToASN, Ludost, Markus-Go, Maxmind, WebNet77 and the official delegate files from the registries (RIPE, APNIC, ARIN, LACNIC and AFRINIC).</Description>
-    <RepositoryUrl>https://github.com/RobThree/IP2Country</RepositoryUrl>
-    <PackageIcon>icon.png</PackageIcon>
-    <Version>2.0.1</Version>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>netstandard1.5</TargetFrameworks>
+		<Authors>RobIII</Authors>
+		<Company>Devcorner.nl</Company>
+		<PackageId>IP-2-Country</PackageId>
+		<NoPackageAnalysis>true</NoPackageAnalysis>
+		<Product>IP-2-Country</Product>
+		<Copyright>(C) 2018 - 2022 Devcorner.nl</Copyright>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/RobThree/IP2Country</PackageProjectUrl>
+		<PackageTags>IP Geolocation Country IP2Country IpToCountry</PackageTags>
+		<PackageReleaseNotes>* Split IIP2CountryResolver interface into two</PackageReleaseNotes>
+		<Description>Provides IP (IPv4 *and* IPv6) mappings to countries. This project provides the IP2CountryResolver and entities and other baseclasses and interfaces. It can be used with many (custom or provided) datasources like the databases from DB-IP, IP2IQ, IPToASN, Ludost, Markus-Go, Maxmind, WebNet77 and the official delegate files from the registries (RIPE, APNIC, ARIN, LACNIC and AFRINIC).</Description>
+		<RepositoryUrl>https://github.com/RobThree/IP2Country</RepositoryUrl>
+		<PackageIcon>icon.png</PackageIcon>
+		<Version>2.0.1</Version>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.6">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="System.Linq.Parallel" Version="4.3.0" />
-    <PackageReference Include="System.Threading.Tasks.Parallel" Version="4.3.0" />
-    <None Include="../icons/icon.png" Pack="true" PackagePath="" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="System.Linq.Parallel" Version="4.3.0" />
+		<PackageReference Include="System.Threading.Tasks.Parallel" Version="4.3.0" />
+		<None Include="../icons/icon.png" Pack="true" PackagePath="" />
+	</ItemGroup>
 
 </Project>

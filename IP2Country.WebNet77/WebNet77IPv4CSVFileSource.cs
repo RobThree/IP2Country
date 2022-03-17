@@ -20,13 +20,18 @@ namespace IP2Country.WebNet77
         public override WebNet77IPv4IPRangeCountry ParseRecord(string record)
         {
             if (record == null)
+            {
                 throw new ArgumentNullException(nameof(record));
+            }
 
             var data = record.Split(',').Select(v => StripQuotes(v)).ToArray();
             if (data.Length != 7)
             {
                 if (IgnoreErrors)
+                {
                     return null;
+                }
+
                 throw new UnexpectedNumberOfFieldsException(data.Length, 7);
             }
 

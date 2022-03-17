@@ -3,7 +3,6 @@ using IP2Country.DataSources.CSVFile;
 using IP2Country.Entities;
 using NetTools;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -26,27 +25,30 @@ namespace IP2Country.MaxMind
         private readonly string _zipfile;
         private readonly string[] _preferredlanguages;
         private readonly BlockOptions _blockoptions;
-        private const BlockOptions DEFAULTBLOCKOPTIONS = BlockOptions.All;
+        private const BlockOptions _defaultblockoptions = BlockOptions.All;
         private readonly Regex _blocksfilter = new Regex(@"-Blocks-IPv(\d+).csv", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
 
         public MaxMindGeoLiteFileSource(string zipFile)
-            : this(zipFile, DEFAULTBLOCKOPTIONS) { }
+            : this(zipFile, _defaultblockoptions) { }
 
         public MaxMindGeoLiteFileSource(string zipFile, BlockOptions blockOptions)
             : this(zipFile, new[] { "en" }, blockOptions) { }
 
         public MaxMindGeoLiteFileSource(string zipFile, string[] preferredLanguages)
-            : this(zipFile, preferredLanguages, DEFAULTBLOCKOPTIONS) { }
+            : this(zipFile, preferredLanguages, _defaultblockoptions) { }
 
         public MaxMindGeoLiteFileSource(string zipFile, string[] preferredLanguages, BlockOptions blockOptions)
         {
             _zipfile = zipFile ?? throw new ArgumentNullException(nameof(zipFile));
             if (preferredLanguages == null)
+            {
                 throw new ArgumentNullException(nameof(preferredLanguages));
+            }
+
             if (preferredLanguages.Length == 0)
-#pragma warning disable CA1303 // Do not pass literals as localized parameters
+            {
                 throw new ArgumentException("At least one preferred language must be specified", nameof(preferredLanguages));
-#pragma warning restore CA1303 // Do not pass literals as localized parameters
+            }
             _preferredlanguages = preferredLanguages;
             _blockoptions = Enum.IsDefined(typeof(BlockOptions), blockOptions) ? blockOptions : throw new ArgumentOutOfRangeException(nameof(blockOptions));
         }
@@ -74,7 +76,9 @@ namespace IP2Country.MaxMind
                 foreach (var e in csvfiles.Where(f => MatchesBlockOptionsFilter(f.Name, _blockoptions)))
                 {
                     foreach (var line in ReadArchiveEntry(e))
+                    {
                         yield return parser.ParseRecord(line);
+                    }
                 }
             }
         }
@@ -102,11 +106,15 @@ namespace IP2Country.MaxMind
             {
                 // Read past header?
                 if (skipHeader)
+                {
                     sr.ReadLine();
+                }
 
                 string line;
                 while ((line = sr.ReadLine()) != null)
+                {
                     yield return line;
+                }
             }
         }
 
@@ -114,7 +122,9 @@ namespace IP2Country.MaxMind
         {
             var geoparser = new MaxMindGeoLiteGeonameCSVRecordParser();
             foreach (var line in ReadArchiveEntry(geoEntry))
+            {
                 yield return geoparser.ParseRecord(line);
+            }
         }
     }
 
@@ -122,15 +132,15 @@ namespace IP2Country.MaxMind
     {
         private readonly IDictionary<int, MaxMindGeoLiteGeonameEntry> _geolookup;
 
-        public MaxMindGeoLiteIPCSVRecordParser(IDictionary<int, MaxMindGeoLiteGeonameEntry> geoNames)
-        {
-            _geolookup = geoNames ?? throw new ArgumentNullException(nameof(geoNames));
-        }
+        public MaxMindGeoLiteIPCSVRecordParser(IDictionary<int, MaxMindGeoLiteGeonameEntry> geoNames) => _geolookup = geoNames ?? throw new ArgumentNullException(nameof(geoNames));
 
         public override IPRangeCountry ParseRecord(string record)
         {
             if (record == null)
+            {
                 throw new ArgumentNullException(nameof(record));
+            }
+
             var data = ReadQuotedValues(record).ToArray();
 
             // Minimum of 3 columns (ASN file)
@@ -141,14 +151,13 @@ namespace IP2Country.MaxMind
                 MaxMindGeoLiteGeonameEntry country = null, regcountry = null, repcountry = null;
 
                 // Only city/country files contain these columns; ASN file doesn't
-                if (data.Length > 3)    
+                if (data.Length > 3)
                 {
                     country = int.TryParse(data[1], out var cntid) ? _geolookup.TryGetValue(cntid, out var cnt) ? cnt : null : null;
                     regcountry = int.TryParse(data[2], out var regid) ? _geolookup.TryGetValue(regid, out var reg) ? reg : null : null;
                     repcountry = int.TryParse(data[3], out var repid) ? _geolookup.TryGetValue(repid, out var rep) ? rep : null : null;
                 }
 
-#pragma warning disable CS0618 // Type or member is obsolete
                 switch (data.Length)
                 {
                     case 3:
@@ -190,15 +199,17 @@ namespace IP2Country.MaxMind
                         };
                     default:
                         if (IgnoreErrors)
+                        {
                             return null;
+                        }
+
                         break;
                 }
-#pragma warning restore CS0618 // Type or member is obsolete
             }
             throw new UnexpectedNumberOfFieldsException(data.Length, new[] { 3, 6, 10 });
         }
 
-        private static bool ParseBool(string value) => int.TryParse(value, out var r) ? r != 0 : false;
+        private static bool ParseBool(string value) => int.TryParse(value, out var r) && r != 0;
 
         private static double? ParseLatLon(string value) => double.TryParse(value, NumberStyles.Integer | NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out var lat) ? (double?)lat : null;
     }
@@ -208,7 +219,9 @@ namespace IP2Country.MaxMind
         public override MaxMindGeoLiteGeonameEntry ParseRecord(string record)
         {
             if (record == null)
+            {
                 throw new ArgumentNullException(nameof(record));
+            }
 
             var data = ReadQuotedValues(record).ToArray();
             switch (data.Length)
@@ -244,7 +257,10 @@ namespace IP2Country.MaxMind
                     };
                 default:
                     if (IgnoreErrors)
+                    {
                         return null;
+                    }
+
                     throw new UnexpectedNumberOfFieldsException(data.Length, new[] { 7, 14 });
             }
         }

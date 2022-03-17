@@ -21,7 +21,9 @@ namespace IP2Country.Caching
         public IIPRangeCountry Resolve(string ip)
         {
             if (string.IsNullOrEmpty(ip))
+            {
                 throw new ArgumentNullException(nameof(ip));
+            }
 
             return Resolve(IPAddress.Parse(ip));
         }

@@ -1,34 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>netstandard1.5</TargetFrameworks>
-    <PackageId>IP-2-Country.Ludost</PackageId>
-    <Authors>RobIII</Authors>
-    <Company>Devcorner.nl</Company>
-    <Product>IP-2-Country.Ludost</Product>
-    <Copyright>(C) 2018 - 2019 Devcorner.nl</Copyright>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/RobThree/IP2Country</PackageProjectUrl>
-    <PackageTags>IP Geolocation Country IP2Country IpToCountry Ludost</PackageTags>
-    <PackageReleaseNotes>* NetStandard 1.5 support</PackageReleaseNotes>
-    <Description>IP-2-Country Datasource for https://ip.ludost.net/</Description>
-    <PackageIcon>ludost.png</PackageIcon>
-    <Version>1.0.6</Version>
-    <RepositoryUrl>https://github.com/RobThree/IP2Country</RepositoryUrl>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>netstandard1.5</TargetFrameworks>
+		<PackageId>IP-2-Country.Ludost</PackageId>
+		<Authors>RobIII</Authors>
+		<Company>Devcorner.nl</Company>
+		<Product>IP-2-Country.Ludost</Product>
+		<Copyright>(C) 2018 - 2019 Devcorner.nl</Copyright>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/RobThree/IP2Country</PackageProjectUrl>
+		<PackageTags>IP Geolocation Country IP2Country IpToCountry Ludost</PackageTags>
+		<PackageReleaseNotes>* NetStandard 1.5 support</PackageReleaseNotes>
+		<Description>IP-2-Country Datasource for https://ip.ludost.net/</Description>
+		<PackageIcon>ludost.png</PackageIcon>
+		<Version>1.0.6</Version>
+		<RepositoryUrl>https://github.com/RobThree/IP2Country</RepositoryUrl>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\IP2Country.DataSources.CSVFile\IP2Country.DataSources.CSVFile.csproj" />
-    <ProjectReference Include="..\IP2Country\IP2Country.csproj" />
-    <None Include="../icons/ludost.png" Pack="true" PackagePath="" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\IP2Country.DataSources.CSVFile\IP2Country.DataSources.CSVFile.csproj" />
+		<ProjectReference Include="..\IP2Country\IP2Country.csproj" />
+		<None Include="../icons/ludost.png" Pack="true" PackagePath="" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.6">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
 
 </Project>

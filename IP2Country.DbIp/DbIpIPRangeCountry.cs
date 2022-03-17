@@ -4,6 +4,6 @@ namespace IP2Country.DbIp
 {
     public class DbIpIPRangeCountry : IPRangeCountry
     {
-        
+
     }
 }

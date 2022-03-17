@@ -20,13 +20,18 @@ namespace IP2Country.IpToAsn
         public override IpToAsnIPRangeCountry ParseRecord(string record)
         {
             if (record == null)
+            {
                 throw new ArgumentNullException(nameof(record));
+            }
 
             var data = record.Split('\t').ToArray();
             if (data.Length != 3)
             {
                 if (IgnoreErrors)
+                {
                     return null;
+                }
+
                 throw new UnexpectedNumberOfFieldsException(data.Length, 3);
             }
 

@@ -8,7 +8,7 @@ namespace DemoWebService.Helpers
 
         public ReloadException(string message) : this(message, null) { }
 
-        public ReloadException(string message, Exception innerException = null)
+        public ReloadException(string message, Exception? innerException = null)
             : base(message, innerException) { }
     }
 }

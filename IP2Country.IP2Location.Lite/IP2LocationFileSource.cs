@@ -37,7 +37,9 @@ namespace IP2Country.IP2Location.Lite
         public override IP2LocationRangeCountry ParseRecord(string record)
         {
             if (record == null)
+            {
                 throw new ArgumentNullException(nameof(record));
+            }
 
             var data = ReadQuotedValues(record).ToArray();
             switch (data.Length)
@@ -101,7 +103,10 @@ namespace IP2Country.IP2Location.Lite
                     };
                 default:
                     if (IgnoreErrors)
+                    {
                         return null;
+                    }
+
                     throw new UnexpectedNumberOfFieldsException(data.Length, new[] { 4, 6, 8, 9, 10 });
             }
         }
@@ -136,17 +141,22 @@ namespace IP2Country.IP2Location.Lite
 
                 var di = bytes.Length;              // Get index into result bytes (at end)
                 for (var i = 0; i < 16; i++)        // Copy byte array, reversed, into result array
+                {
                     addrbytes[i] = (l >= 16 - i) ? bytes[--di] : (byte)0;
+                }
 
                 return new IPAddress(addrbytes);
             }
             throw new FormatException($"The value '{value}' could not be converted to an IPv6 address");
         }
 
-        private static string FixEmpty(string value) => "-".Equals(value, StringComparison.OrdinalIgnoreCase) ? null : value;
+        private static string FixEmpty(string value)
+            => "-".Equals(value, StringComparison.OrdinalIgnoreCase) ? null : value;
 
-        private static double? ParseLatLon(string value) => double.TryParse(value, NumberStyles.Integer | NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out var lat) ? (double?)lat : null;
+        private static double? ParseLatLon(string value)
+            => double.TryParse(value, NumberStyles.Integer | NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out var lat) ? (double?)lat : null;
 
-        private static TimeSpan? ParseTZOffset(string value) => TimeSpan.TryParse(value.Replace("+", ""), out var tz) ? (TimeSpan?)tz : null;
+        private static TimeSpan? ParseTZOffset(string value)
+            => TimeSpan.TryParse(value.Replace("+", ""), out var tz) ? (TimeSpan?)tz : null;
     }
 }

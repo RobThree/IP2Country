@@ -25,7 +25,9 @@ namespace IP2Country.Registries
         public override RegistryIPRangeCountry ParseRecord(string record)
         {
             if (record == null)
+            {
                 throw new ArgumentNullException(nameof(record));
+            }
 
             var data = record.Split('|');
 
@@ -49,7 +51,10 @@ namespace IP2Country.Registries
         private static DateTime? ParseDate(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
+            {
                 return null;
+            }
+
             return DateTime.ParseExact(value, "yyyyMMdd", CultureInfo.InvariantCulture);
         }
 
@@ -73,8 +78,7 @@ namespace IP2Country.Registries
 
                     // This needs to work with values between 0 and 128
                     // where 0's mask is 0, and 128's mask is 0xFFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF.
-                    var upperMask = 0UL;
-                    var lowerMask = 0UL;
+                    ulong upperMask, lowerMask;
                     if (value > 0 && value <= 64)
                     {
                         upperMask = unchecked(~((1UL << (64 - value)) - 1));
@@ -100,7 +104,9 @@ namespace IP2Country.Registries
         {
             var result = BitConverter.GetBytes(value);
             if (BitConverter.IsLittleEndian)
+            {
                 Array.Reverse(result);
+            }
 
             return result;
         }
@@ -109,7 +115,9 @@ namespace IP2Country.Registries
         {
             var result = BitConverter.GetBytes(value);
             if (BitConverter.IsLittleEndian)
+            {
                 Array.Reverse(result);
+            }
 
             return result;
         }
@@ -119,7 +127,9 @@ namespace IP2Country.Registries
             // We can't use BitConverter.ToUInt64 because it will use little-endian on x86/x64.
             var result = 0UL;
             for (var i = 0; i < 8; i++)
+            {
                 result |= (ulong)bigEndianBytes[i + startIndex] << ((8 - i - 1) * 8);
+            }
 
             return result;
         }
